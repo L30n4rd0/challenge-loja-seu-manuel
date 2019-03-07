@@ -12,12 +12,13 @@ import org.junit.jupiter.api.Test;
  *
  */
 class ItemPedidoDaoSqlTeste {
-
+	
 	/**
 	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDaoSql#listar()}.
 	 */
 	@Test
 	void testListar() {
+		System.out.println("1");
 		fail("Not yet implemented");
 	}
 
@@ -26,6 +27,7 @@ class ItemPedidoDaoSqlTeste {
 	 */
 	@Test
 	void testBuscaPorId() {
+		System.out.println("2");
 		fail("Not yet implemented");
 	}
 
@@ -34,6 +36,10 @@ class ItemPedidoDaoSqlTeste {
 	 */
 	@Test
 	void testAdicionar() {
+		
+		
+		
+		System.out.println("3");
 		fail("Not yet implemented");
 	}
 
@@ -42,6 +48,7 @@ class ItemPedidoDaoSqlTeste {
 	 */
 	@Test
 	void testEditar() {
+		System.out.println("4");
 		fail("Not yet implemented");
 	}
 
@@ -50,6 +57,7 @@ class ItemPedidoDaoSqlTeste {
 	 */
 	@Test
 	void testExcluir() {
+		System.out.println("5");
 		fail("Not yet implemented");
 	}
 

@@ -64,5 +64,31 @@ public class AtributoCustomizavel {
 	public void setValor(String valor) {
 		this.valor = valor;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (this == obj)
+			return true;
+		
+		if (obj == null)
+			return false;
+		
+		if (getClass() != obj.getClass())
+			return false;
+		
+		AtributoCustomizavel atributoTemp = (AtributoCustomizavel) obj;
+		
+		if (this.id != atributoTemp.getId())
+			return false;
+		
+		if (!this.nome.equals(atributoTemp.getNome()))
+			return false;
+		
+		if (!this.valor.equals(atributoTemp.getValor()))
+			return false;
+		
+		return true;
+	}
 	
 }

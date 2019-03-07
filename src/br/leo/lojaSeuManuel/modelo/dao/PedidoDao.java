@@ -3,6 +3,7 @@
  */
 package br.leo.lojaSeuManuel.modelo.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import br.leo.lojaSeuManuel.modelo.vo.Pedido;
@@ -13,14 +14,14 @@ import br.leo.lojaSeuManuel.modelo.vo.Pedido;
  */
 public interface PedidoDao {
 	
-	public List<Pedido> listar();
+	public List<Pedido> listar() throws ClassNotFoundException, SQLException;
 	
-	public Pedido buscaPorId(int id);
+	public Pedido buscaPorId(int id) throws ClassNotFoundException, SQLException;
 	
-	public int adicionar(Pedido pedido);
+	public int adicionar(Pedido pedido) throws ClassNotFoundException, SQLException;
 	
-	public void editar(Pedido pedido);
+	public void editar(Pedido pedido) throws ClassNotFoundException, SQLException;
 	
-	public void excluir(int id);
+	public void excluir(int id) throws ClassNotFoundException, SQLException;
 
 }

@@ -121,5 +121,53 @@ public class Produto {
 	public void setAtributosCustomizaveis(List<AtributoCustomizavel> atributosCustomizaveis) {
 		this.atributosCustomizaveis = atributosCustomizaveis;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (this == obj)
+			return true;
+		
+		if (obj == null)
+			return false;
+		
+		if (getClass() != obj.getClass())
+			return false;
+		
+		Produto produtoTemp = (Produto) obj;
+		
+		if (this.id != produtoTemp.getId())
+			return false;
+		
+		if (!this.codigo.equals(produtoTemp.getCodigo()))
+			return false;
+		
+		if (!this.nome.equals(produtoTemp.getNome()))
+			return false;
+		
+		if (!this.descricao.equals(produtoTemp.getDescricao()))
+			return false;
+		
+		if (this.estoque != produtoTemp.getEstoque())
+			return false;
+		
+		if (this.preco != produtoTemp.getPreco())
+			return false;
+		
+		if (this.atributosCustomizaveis.size() != produtoTemp.getAtributosCustomizaveis().size())
+			return false;
+		
+		for (int i = 0; i < atributosCustomizaveis.size(); i++) {
+			
+			if (this.atributosCustomizaveis.get(i) != produtoTemp.getAtributosCustomizaveis().get(i))
+				return false;
+			
+		}
+		
+		return true;
+		
+	}
+	
+	
 	
 }
