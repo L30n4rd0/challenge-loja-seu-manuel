@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -25,23 +26,6 @@ class ProdutoDaoSqlTeste {
 	
 	static ProdutoDao produtoDao = new ProdutoDaoSql();
 	
-	static List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
-	
-	static Produto produtoTemp;
-	
-	@BeforeAll
-	static void iniciando() {
-		
-		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
-		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
-		atributosExtras.add(new AtributoCustomizavel("peso", "2kg"));
-		
-		produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 10, 10, atributosExtras);
-		
-	}
-	
-	
-
 	/**
 	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql#listar()}.
 	 * @throws SQLException 
@@ -52,13 +36,32 @@ class ProdutoDaoSqlTeste {
 		
 		List<Produto> listaProdutosTemp = produtoDao.listar();
 		
-//		for (Produto produto : listaProdutosTemp) {
-//			System.out.println(produto.getId());
-//			System.out.println(produto.getNome());
-//		}
+		assertNotNull(listaProdutosTemp);
 		
 		assertTrue(listaProdutosTemp.size() > 0);
 		
+		for (Produto produto : listaProdutosTemp) {
+			
+			assertNotNull(produto);
+			assertNotNull(produto.getId());
+			assertNotNull(produto.getNome());
+			assertNotNull(produto.getPreco());
+			assertNotNull(produto.getEstoque());
+			assertNotNull(produto.getDescricao());
+			assertNotNull(produto.getCodigo());
+			assertNotNull(produto.getAtributosCustomizaveis());
+			
+			List<AtributoCustomizavel> listDeAtributos = produto.getAtributosCustomizaveis();
+			
+			for (AtributoCustomizavel atributoCustomizavel : listDeAtributos) {
+				
+				assertNotNull(atributoCustomizavel.getId());
+				assertNotNull(atributoCustomizavel.getNome());
+				assertNotNull(atributoCustomizavel.getValor());
+				
+			}
+			
+		}
 		
 	}
 
@@ -80,12 +83,48 @@ class ProdutoDaoSqlTeste {
 		assertNull(produtoDao.buscaPorId(0));
 		
 		
+		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
+		
+		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
+		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
+		atributosExtras.add(new AtributoCustomizavel("peso", "2kg"));
+		
+		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
+		
 		int idProdutoInserido = produtoDao.adicionar(produtoTemp);
 		
 		produtoTemp.setId(idProdutoInserido);
 		
-		assertTrue(produtoTemp.equals( produtoDao.buscaPorId(idProdutoInserido) ));
+		Produto produtoBuscaodo = produtoDao.buscaPorId(idProdutoInserido);
 		
+		assertNotNull(produtoBuscaodo);
+		assertNotNull(produtoBuscaodo.getId());
+		assertNotNull(produtoBuscaodo.getNome());
+		assertNotNull(produtoBuscaodo.getPreco());
+		assertNotNull(produtoBuscaodo.getEstoque());
+		assertNotNull(produtoBuscaodo.getDescricao());
+		assertNotNull(produtoBuscaodo.getCodigo());
+		assertNotNull(produtoBuscaodo.getAtributosCustomizaveis());
+		
+		List<AtributoCustomizavel> listDeAtributos = produtoBuscaodo.getAtributosCustomizaveis();
+		
+		for (AtributoCustomizavel atributoCustomizavel : listDeAtributos) {
+			
+			assertNotNull(atributoCustomizavel.getId());
+			assertNotNull(atributoCustomizavel.getNome());
+			assertNotNull(atributoCustomizavel.getValor());
+			
+		}
+		
+		for (int i = 0; i < listDeAtributos.size(); i++) {
+			
+			produtoTemp.getAtributosCustomizaveis().get(i).setId(
+					produtoBuscaodo.getAtributosCustomizaveis().get(i).getId()
+			);
+			
+		}
+		
+		assertTrue(produtoTemp.equals( produtoBuscaodo ));
 		
 	}
 
@@ -102,6 +141,14 @@ class ProdutoDaoSqlTeste {
 	void testAdicionar() throws ClassNotFoundException, SQLException {
 		
 		int idProdutoInserido = 0;
+		
+		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
+		
+		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
+		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
+		atributosExtras.add(new AtributoCustomizavel("peso", "2kg"));
+		
+		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
 		
 		idProdutoInserido = produtoDao.adicionar(produtoTemp);
 		
@@ -128,21 +175,38 @@ class ProdutoDaoSqlTeste {
 	@Test
 	void testEditar() throws ClassNotFoundException, SQLException {
 		
+		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
+		
+		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
+		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
+		atributosExtras.add(new AtributoCustomizavel("peso", "2kg"));
+		
+		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
+		
 		int idProdutoInserido = produtoDao.adicionar(produtoTemp);
 		
-		produtoTemp.setId(idProdutoInserido);
+		produtoTemp = produtoDao.buscaPorId(idProdutoInserido);
+		
 		produtoTemp.setNome("cd");
 		produtoTemp.setEstoque(8);
 		produtoTemp.setPreco(10);
 		produtoTemp.setDescricao("cd sertanejo");
 		produtoTemp.getAtributosCustomizaveis().get(0).setValor("preto");
+		produtoTemp.getAtributosCustomizaveis().get(2).setValor("3kg");
 		
 		produtoDao.editar(produtoTemp);
 		
 		assertTrue(produtoTemp.equals( produtoDao.buscaPorId(idProdutoInserido)) );
+		
+		
+		produtoTemp.getAtributosCustomizaveis().remove(0);
+		
+		produtoDao.editar(produtoTemp);
+		
+		assertTrue(produtoTemp.equals( produtoDao.buscaPorId(idProdutoInserido)) );
+		
+		
 
-		
-		
 	}
 
 	/**
@@ -153,6 +217,14 @@ class ProdutoDaoSqlTeste {
 	@Test
 	void testExcluir() throws ClassNotFoundException, SQLException {
 		
+		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
+		
+		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
+		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
+		atributosExtras.add(new AtributoCustomizavel("peso", "2kg"));
+		
+		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
+		
 		int idProdutoInserido = produtoDao.adicionar(produtoTemp);
 		
 		produtoDao.excluir(idProdutoInserido);
@@ -161,5 +233,21 @@ class ProdutoDaoSqlTeste {
 		
 		
 	}
+	
+	
+//	@AfterAll
+//	static void limparBanco() throws ClassNotFoundException, SQLException {
+//		
+//		List<Produto> listaAtributosTemp = produtoDao.listar();
+//		
+//		for (Produto atributoCustomizavel : listaAtributosTemp) {
+//			
+//			produtoDao.excluir(atributoCustomizavel.getId());
+//			
+//			assertNull(produtoDao.buscaPorId(atributoCustomizavel.getId()));
+//			
+//		}
+//		
+//	}
 
 }

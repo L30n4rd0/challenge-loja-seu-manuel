@@ -136,14 +136,15 @@ public class Produto {
 		
 		Produto produtoTemp = (Produto) obj;
 		
+		if (!this.nome.equals(produtoTemp.getNome()))
+			return false;
+			
 		if (this.id != produtoTemp.getId())
 			return false;
 		
 		if (!this.codigo.equals(produtoTemp.getCodigo()))
 			return false;
 		
-		if (!this.nome.equals(produtoTemp.getNome()))
-			return false;
 		
 		if (!this.descricao.equals(produtoTemp.getDescricao()))
 			return false;
@@ -159,7 +160,7 @@ public class Produto {
 		
 		for (int i = 0; i < atributosCustomizaveis.size(); i++) {
 			
-			if (this.atributosCustomizaveis.get(i) != produtoTemp.getAtributosCustomizaveis().get(i))
+			if ( !this.atributosCustomizaveis.get(i).equals(produtoTemp.getAtributosCustomizaveis().get(i)) )
 				return false;
 			
 		}

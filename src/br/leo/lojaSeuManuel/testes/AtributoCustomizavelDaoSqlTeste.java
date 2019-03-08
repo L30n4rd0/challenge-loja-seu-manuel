@@ -42,6 +42,27 @@ class AtributoCustomizavelDaoSqlTeste {
 //			System.out.println(atributoCustomizavel.getNome());
 //		}
 		
+//		assertNull(listaAtributosTemp);
+		
+		assertTrue(listaAtributosTemp.size() > 0);
+		
+	}
+	
+	
+	
+	
+	@Test
+	void testbuscaPorChaveEstrangeiraProduto() throws ClassNotFoundException, SQLException {
+		
+		List<AtributoCustomizavel> listaAtributosTemp = atributoDao.buscaPorChaveEstrangeiraProduto(idProduto);
+		
+//		for (AtributoCustomizavel atributoCustomizavel : listaAtributosTemp) {
+//			System.out.println(atributoCustomizavel.getId());
+//			System.out.println(atributoCustomizavel.getNome());
+//		}
+		
+//		assertNull(listaAtributosTemp);
+		
 		assertTrue(listaAtributosTemp.size() > 0);
 		
 	}

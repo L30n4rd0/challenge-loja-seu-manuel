@@ -21,7 +21,7 @@ USE `bd_loja_seu_manuel` ;
 DROP TABLE IF EXISTS `bd_loja_seu_manuel`.`produto` ;
 
 CREATE TABLE IF NOT EXISTS `bd_loja_seu_manuel`.`produto` (
-  `id_produto` INT NOT NULL AUTO_INCREMENT,
+  `id_produto` INT(11) NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(20) NULL,
   `nome` VARCHAR(45) NULL,
   `descricao` VARCHAR(100) NULL,
@@ -37,7 +37,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bd_loja_seu_manuel`.`pedido` ;
 
 CREATE TABLE IF NOT EXISTS `bd_loja_seu_manuel`.`pedido` (
-  `id_pedido` INT NOT NULL AUTO_INCREMENT,
+  `id_pedido` INT(11) NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(20) NULL,
   `data_compra` DATE NULL,
   `nome_comprador` VARCHAR(45) NULL,
@@ -54,13 +54,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bd_loja_seu_manuel`.`item_pedido` ;
 
 CREATE TABLE IF NOT EXISTS `bd_loja_seu_manuel`.`item_pedido` (
-  `id_item_pedido` INT NOT NULL AUTO_INCREMENT,
-  `codigo_produto` VARCHAR(20) NULL,
-  `nome_produto` VARCHAR(45) NULL,
+  `id_item_pedido` INT(11) NOT NULL AUTO_INCREMENT,
   `quantidade` INT NULL,
   `preco` DOUBLE NULL,
-  `fk_id_produto` INT NOT NULL,
-  `fk_id_pedido` INT NOT NULL,
+  `fk_id_produto` INT(11) NOT NULL,
+  `fk_id_pedido` INT(11) NOT NULL,
   PRIMARY KEY (`id_item_pedido`),
   CONSTRAINT `fk_item_pedido_produto`
     FOREIGN KEY (`fk_id_produto`)
@@ -81,10 +79,10 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bd_loja_seu_manuel`.`atributo_customizavel` ;
 
 CREATE TABLE IF NOT EXISTS `bd_loja_seu_manuel`.`atributo_customizavel` (
-  `id_atributo` INT NOT NULL AUTO_INCREMENT,
+  `id_atributo` INT(11) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(20) NULL,
   `valor` VARCHAR(20) NULL,
-  `fk_id_produto` INT NOT NULL,
+  `fk_id_produto` INT(11) NOT NULL,
   PRIMARY KEY (`id_atributo`),
   CONSTRAINT `fk_atributo_produto`
     FOREIGN KEY (`fk_id_produto`)
@@ -92,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `bd_loja_seu_manuel`.`atributo_customizavel` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

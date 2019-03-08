@@ -195,6 +195,7 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 			preparedStatement.setString(1, atributoCustomizavel.getNome());
 			preparedStatement.setString(2, atributoCustomizavel.getValor());
 			preparedStatement.setInt(3, atributoCustomizavel.getId());
+			
 			preparedStatement.execute();
 			
 		} finally {
@@ -235,6 +236,63 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 			
 		}
 
+	}
+
+
+
+
+
+
+	@Override
+	public List<AtributoCustomizavel> buscaPorChaveEstrangeiraProduto(int chaveEstrangeiraProduto)
+			throws ClassNotFoundException, SQLException {
+		
+		PreparedStatement preparedStatement = null;
+		
+		Connection connection = null;
+		
+		ResultSet resultSet = null;
+		
+		String stringSQL = "SELECT * FROM atributo_customizavel WHERE fk_id_produto = ?";
+		
+		List<AtributoCustomizavel> listaDeAtributos = null;
+		
+		try {
+			connection = ConexaoSql.getConnection();
+			
+			preparedStatement = connection.prepareStatement(stringSQL);
+			
+			preparedStatement.setInt(1, chaveEstrangeiraProduto);
+			
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				
+				if (listaDeAtributos == null) {
+					
+					listaDeAtributos = new ArrayList<AtributoCustomizavel>();
+					
+				}
+				
+				listaDeAtributos.add(
+						new AtributoCustomizavel(
+								resultSet.getInt("id_atributo"), 
+								resultSet.getString("nome"), 
+								resultSet.getString("valor")
+						)
+				);
+				
+			}
+				
+		} finally {
+			
+			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
+			
+		}
+		
+		return listaDeAtributos;
+		
+		
 	}
 
 }

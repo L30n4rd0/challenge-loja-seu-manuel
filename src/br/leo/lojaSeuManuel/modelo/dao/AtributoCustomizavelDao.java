@@ -18,7 +18,9 @@ public interface AtributoCustomizavelDao {
 	
 	public AtributoCustomizavel buscaPorId(int id) throws ClassNotFoundException, SQLException;
 	
-	public int adicionar(AtributoCustomizavel atributoCustomizavel, int fk_id_produto) throws SQLException, ClassNotFoundException;
+	public List<AtributoCustomizavel> buscaPorChaveEstrangeiraProduto(int chaveEstrangeiraProduto) throws ClassNotFoundException, SQLException;
+	
+	public int adicionar(AtributoCustomizavel atributoCustomizavel, int chaveEstrangeiraProduto) throws SQLException, ClassNotFoundException;
 	
 	public void editar(AtributoCustomizavel atributoCustomizavel) throws ClassNotFoundException, SQLException;
 	
