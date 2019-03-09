@@ -190,7 +190,7 @@ class ItemPedidoDaoSqlTeste {
 		// Id do item de pedido, gerado no banco
 		int idItemPedidoInserido = itemPedidoDao.adicionar(itemPedidoTemp, chaveEstrangeiraPedido);
 		
-		// Busca por id o item adicionado previamente
+		// Busca o item de pedido inserido no banco através do id
 		itemPedidoTemp = itemPedidoDao.buscaPorId(idItemPedidoInserido);
 		
 		// Realiza algumas alterações nos dados
@@ -199,7 +199,7 @@ class ItemPedidoDaoSqlTeste {
 		// Aplica as alterações no banco
 		itemPedidoDao.editar(itemPedidoTemp);
 		
-		// Testa se o item editado no banco têm os mesmos dados do item 
+		// Testa se o item editado no banco tem os mesmos dados do item 
 		// antes de adicionar as alterações no banco 
 		assertTrue(itemPedidoTemp.equals( itemPedidoDao.buscaPorId(idItemPedidoInserido)) );
 		
@@ -236,9 +236,10 @@ class ItemPedidoDaoSqlTeste {
 		// Id do item de pedido, gerado no banco
 		int idItemPedidoInserido = itemPedidoDao.adicionar(itemPedidoTemp, chaveEstrangeiraPedido);
 		
-		// Exclui através do id item inserido
+		// Exclui através do id o item inserido
 		itemPedidoDao.excluir(idItemPedidoInserido);
 		
+		// Testa se o item foi realmente excluído
 		assertNull(itemPedidoDao.buscaPorId(idItemPedidoInserido));
 		
 		
