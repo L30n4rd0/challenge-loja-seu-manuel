@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.leo.lojaSeuManuel.testes;
+package br.leo.lojaSeuManuel.testes.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -162,6 +162,54 @@ public class Pedido {
 	public void setItensDoPedido(List<ItemPedido> itensDoPedido) {
 		this.itensDoPedido = itensDoPedido;
 	}
-	
+
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (this == obj)
+			return true;
+		
+		if (obj == null)
+			return false;
+		
+		if (getClass() != obj.getClass())
+			return false;
+		
+		Pedido pedidoTemp = (Pedido) obj;
+		
+		if (this.id != pedidoTemp.getId())
+			return false;
+		
+		if (!this.codigo.equals(pedidoTemp.getCodigo()))
+			return false;
+		
+		if (!this.dataCompra.equals(pedidoTemp.getDataCompra()))
+			return false;
+		
+		if (!this.nomeComprador.equals(pedidoTemp.getNomeComprador()))
+			return false;
+			
+		if (!this.estado.equals(pedidoTemp.getEstado()))
+			return false;
+		
+		if (this.valorFrete != pedidoTemp.getValorFrete())
+			return false;
+		
+		if (this.valorTotal != pedidoTemp.getValorTotal())
+			return false;
+		
+		for (int i = 0; i < this.itensDoPedido.size(); i++) {
+			
+			if ( !this.itensDoPedido.get(i).equals(pedidoTemp.getItensDoPedido().get(i)) ) {
+				return false;
+				
+			}
+			
+		}
+		
+		return true;
+	}
+
 
 }

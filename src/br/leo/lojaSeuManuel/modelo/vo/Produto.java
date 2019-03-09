@@ -158,7 +158,7 @@ public class Produto {
 		if (this.atributosCustomizaveis.size() != produtoTemp.getAtributosCustomizaveis().size())
 			return false;
 		
-		for (int i = 0; i < atributosCustomizaveis.size(); i++) {
+		for (int i = 0; i < this.atributosCustomizaveis.size(); i++) {
 			
 			if ( !this.atributosCustomizaveis.get(i).equals(produtoTemp.getAtributosCustomizaveis().get(i)) )
 				return false;

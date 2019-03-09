@@ -11,39 +11,60 @@ public class ItemPedido {
 	
 	private int id;
 	
-	private Produto produto;
+	private int idProduto;
+	
+	private String codigoProduto;
+	
+	private String nomeProduto;
+	
+	private double precoProduto;
 	
 	private int quantidade;
 	
 	private double preco;
 	
+	
+	
 	public ItemPedido() {
 	}
-
+	
+	
+	
+	
 	/**
-	 * @param produto
+	 * @param idProduto
 	 * @param quantidade
-	 * @param preco
 	 */
-	public ItemPedido(Produto produto, int quantidade) {
-		this.produto = produto;
+	public ItemPedido(int idProduto, int quantidade) {
+		this.idProduto = idProduto;
 		this.quantidade = quantidade;
-		this.preco = this.quantidade * this.produto.getPreco();
 	}
-
+	
+	
+	
+	
 	/**
 	 * @param id
-	 * @param produto
+	 * @param idProduto
 	 * @param quantidade
-	 * @param preco
 	 */
-	public ItemPedido(int id, Produto produto, int quantidade) {
+	public ItemPedido(int id, int idProduto, int quantidade) {
 		this.id = id;
-		this.produto = produto;
+		this.idProduto = idProduto;
 		this.quantidade = quantidade;
-		this.preco = this.quantidade * this.produto.getPreco();
 	}
+	
 
+	
+	
+	
+	public void atualizarPreco() {
+		this.preco = this.quantidade * this.precoProduto;
+	}
+	
+	
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -52,12 +73,36 @@ public class ItemPedido {
 		this.id = id;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public int getIdProduto() {
+		return idProduto;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setIdProduto(int idProduto) {
+		this.idProduto = idProduto;
+	}
+
+	public String getCodigoProduto() {
+		return codigoProduto;
+	}
+
+	public void setCodigoProduto(String codigoProduto) {
+		this.codigoProduto = codigoProduto;
+	}
+
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
+	}
+
+	public double getPrecoProduto() {
+		return precoProduto;
+	}
+
+	public void setPrecoProduto(double precoProduto) {
+		this.precoProduto = precoProduto;
 	}
 
 	public int getQuantidade() {
@@ -71,9 +116,45 @@ public class ItemPedido {
 	public double getPreco() {
 		return preco;
 	}
+	
+	
 
-	public void setPreco(double preco) {
-		this.preco = preco;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		
+		if (obj == null)
+			return false;
+		
+		if (getClass() != obj.getClass())
+			return false;
+		
+		ItemPedido itemPedidoTemp = (ItemPedido) obj;
+		
+		if (this.id != itemPedidoTemp.getId())
+			return false;
+		
+		if (this.idProduto != itemPedidoTemp.getIdProduto())
+			return false;
+		
+		if (!this.codigoProduto.equals(itemPedidoTemp.getCodigoProduto()))
+			return false;
+		
+		if (!this.nomeProduto.equals(itemPedidoTemp.getNomeProduto()))
+			return false;
+		
+		if (this.precoProduto != itemPedidoTemp.getPrecoProduto())
+			return false;
+		
+		if (this.quantidade != itemPedidoTemp.quantidade)
+			return false;
+		
+		if (this.preco != itemPedidoTemp.getPreco())
+			return false;
+		
+		return true;
+		
 	}
 	
 }

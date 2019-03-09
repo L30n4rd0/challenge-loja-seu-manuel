@@ -132,7 +132,7 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 	 * @see br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDao#adicionar(br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel)
 	 */
 	@Override
-	public int adicionar(AtributoCustomizavel atributoCustomizavel, int fk_id_produto) throws SQLException, ClassNotFoundException {
+	public int adicionar(AtributoCustomizavel atributoCustomizavel, int chaveEstrangeiraProduto) throws SQLException, ClassNotFoundException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -151,7 +151,7 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 			
 			preparedStatement.setString(1, atributoCustomizavel.getNome());
 			preparedStatement.setString(2, atributoCustomizavel.getValor());
-			preparedStatement.setInt(3, fk_id_produto);
+			preparedStatement.setInt(3, chaveEstrangeiraProduto);
 			preparedStatement.execute();
 			
 			resultSet = preparedStatement.getGeneratedKeys();

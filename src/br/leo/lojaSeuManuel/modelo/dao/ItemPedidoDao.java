@@ -18,10 +18,11 @@ public interface ItemPedidoDao {
 	
 	public ItemPedido buscaPorId(int id) throws ClassNotFoundException, SQLException;
 	
-	public int adicionar(ItemPedido itemPedido) throws ClassNotFoundException, SQLException;
+	int adicionar(ItemPedido itemPedido, int chaveEstrangeiraPedido) throws ClassNotFoundException, SQLException;
 	
 	public void editar(ItemPedido itemPedido) throws ClassNotFoundException, SQLException;
 	
 	public void excluir(int id) throws ClassNotFoundException, SQLException;
+
 
 }

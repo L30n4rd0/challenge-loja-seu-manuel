@@ -215,10 +215,9 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 			}
 			
-			
 		} finally {
 			
-			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
+			ConexaoSql.closeConnection(connection, preparedStatement, null);
 			
 		}
 		

@@ -1,16 +1,16 @@
 /**
  * 
  */
-package br.leo.lojaSeuManuel.testes;
+package br.leo.lojaSeuManuel.testes.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import br.leo.lojaSeuManuel.modelo.dao.ProdutoDao;
@@ -95,18 +95,18 @@ class ProdutoDaoSqlTeste {
 		
 		produtoTemp.setId(idProdutoInserido);
 		
-		Produto produtoBuscaodo = produtoDao.buscaPorId(idProdutoInserido);
+		Produto produtoBuscado = produtoDao.buscaPorId(idProdutoInserido);
 		
-		assertNotNull(produtoBuscaodo);
-		assertNotNull(produtoBuscaodo.getId());
-		assertNotNull(produtoBuscaodo.getNome());
-		assertNotNull(produtoBuscaodo.getPreco());
-		assertNotNull(produtoBuscaodo.getEstoque());
-		assertNotNull(produtoBuscaodo.getDescricao());
-		assertNotNull(produtoBuscaodo.getCodigo());
-		assertNotNull(produtoBuscaodo.getAtributosCustomizaveis());
+		assertNotNull(produtoBuscado);
+		assertNotNull(produtoBuscado.getId());
+		assertNotNull(produtoBuscado.getNome());
+		assertNotNull(produtoBuscado.getPreco());
+		assertNotNull(produtoBuscado.getEstoque());
+		assertNotNull(produtoBuscado.getDescricao());
+		assertNotNull(produtoBuscado.getCodigo());
+		assertNotNull(produtoBuscado.getAtributosCustomizaveis());
 		
-		List<AtributoCustomizavel> listDeAtributos = produtoBuscaodo.getAtributosCustomizaveis();
+		List<AtributoCustomizavel> listDeAtributos = produtoBuscado.getAtributosCustomizaveis();
 		
 		for (AtributoCustomizavel atributoCustomizavel : listDeAtributos) {
 			
@@ -119,12 +119,12 @@ class ProdutoDaoSqlTeste {
 		for (int i = 0; i < listDeAtributos.size(); i++) {
 			
 			produtoTemp.getAtributosCustomizaveis().get(i).setId(
-					produtoBuscaodo.getAtributosCustomizaveis().get(i).getId()
+					produtoBuscado.getAtributosCustomizaveis().get(i).getId()
 			);
 			
 		}
 		
-		assertTrue(produtoTemp.equals( produtoBuscaodo ));
+		assertTrue(produtoTemp.equals( produtoBuscado ));
 		
 	}
 
@@ -152,13 +152,10 @@ class ProdutoDaoSqlTeste {
 		
 		idProdutoInserido = produtoDao.adicionar(produtoTemp);
 		
-		Integer temp = idProdutoInserido;
+		// Testa se o id do produto adicionado não é nulo
+		assertNotNull(idProdutoInserido);
 		
-		assertTrue(temp instanceof Integer);
-		
-		/**
-		 * O método adicionar retorna o id gerado no banco de dados em caso de sucesso
-		 */
+		// Testa se o id do produto adicionado é maior que zero
 		assertTrue(idProdutoInserido > 0);
 		
 	}
@@ -183,10 +180,13 @@ class ProdutoDaoSqlTeste {
 		
 		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
 		
+		// Adiciona um novo produto no banco de dados
 		int idProdutoInserido = produtoDao.adicionar(produtoTemp);
 		
+		// Busca por id o produto adicionado previamente
 		produtoTemp = produtoDao.buscaPorId(idProdutoInserido);
 		
+		// Realiza algumas alterações nos dados
 		produtoTemp.setNome("cd");
 		produtoTemp.setEstoque(8);
 		produtoTemp.setPreco(10);
@@ -194,18 +194,23 @@ class ProdutoDaoSqlTeste {
 		produtoTemp.getAtributosCustomizaveis().get(0).setValor("preto");
 		produtoTemp.getAtributosCustomizaveis().get(2).setValor("3kg");
 		
+		// Aplica as alterações no banco
 		produtoDao.editar(produtoTemp);
 		
+		// Testa se o produto editado no banco têm os mesmos dados do produto 
+		// antes de aplicar as alterações
 		assertTrue(produtoTemp.equals( produtoDao.buscaPorId(idProdutoInserido)) );
 		
-		
+		// Realiza mais algumas alterações
+		// Remove 1 dos atributos customizáveis
 		produtoTemp.getAtributosCustomizaveis().remove(0);
 		
+		// Aplica as alterações no banco
 		produtoDao.editar(produtoTemp);
 		
+		// Testa se o produto editado no banco têm os mesmos dados do produto 
+		// antes de aplicar as alterações 
 		assertTrue(produtoTemp.equals( produtoDao.buscaPorId(idProdutoInserido)) );
-		
-		
 
 	}
 
