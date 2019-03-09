@@ -54,10 +54,33 @@ public class ItemPedido {
 		this.quantidade = quantidade;
 	}
 	
+	
+	
+	
+	
+	/**
+	 * @param id
+	 * @param idProduto
+	 * @param codigoProduto
+	 * @param nomeProduto
+	 * @param precoProduto
+	 * @param quantidade
+	 * @param preco
+	 */
+	public ItemPedido(int id, int idProduto, String codigoProduto, String nomeProduto, double precoProduto,
+			int quantidade, double preco) {
+		this.id = id;
+		this.idProduto = idProduto;
+		this.codigoProduto = codigoProduto;
+		this.nomeProduto = nomeProduto;
+		this.precoProduto = precoProduto;
+		this.quantidade = quantidade;
+		this.preco = preco;
+	}
 
-	
-	
-	
+
+
+
 	public void atualizarPreco() {
 		this.preco = this.quantidade * this.precoProduto;
 	}

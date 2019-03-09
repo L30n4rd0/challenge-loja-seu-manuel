@@ -201,7 +201,7 @@ class ItemPedidoDaoSqlTeste {
 		
 		// Testa se o item editado no banco têm os mesmos dados do item 
 		// antes de adicionar as alterações no banco 
-		assertTrue(itemPedidoTemp.equals( produtoDao.buscaPorId(idItemPedidoInserido)) );
+		assertTrue(itemPedidoTemp.equals( itemPedidoDao.buscaPorId(idItemPedidoInserido)) );
 		
 	}
 	
