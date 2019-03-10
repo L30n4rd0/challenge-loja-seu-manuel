@@ -142,7 +142,12 @@ public class ItemPedido {
 		return valorParcial;
 	}
 	
-	
+	public void setValorParcial(double valorParcial) {
+		this.valorParcial = valorParcial;
+	}
+
+
+
 
 	@Override
 	public boolean equals(Object obj) {

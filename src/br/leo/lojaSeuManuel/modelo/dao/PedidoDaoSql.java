@@ -64,6 +64,7 @@ public class PedidoDaoSql implements PedidoDao {
 				
 				int idPedido = resultSet.getInt("id_pedido");
 				
+				// Busca no banco todos os itens de pedido com a chave estrangeira do pedido
 				List<ItemPedido> listaDeItens = itemPedidoDao.buscaPorChaveEstrangeiraPedido(idPedido);
 				
 				listaDePedidos.add(
@@ -76,6 +77,7 @@ public class PedidoDaoSql implements PedidoDao {
 								resultSet.getString("estado"), 
 								resultSet.getDouble("valor_frete"), 
 								listaDeItens
+								// O valor total é atualizado no construtor da classe
 						)
 				);
 				
@@ -136,6 +138,7 @@ public class PedidoDaoSql implements PedidoDao {
 								resultSet.getString("estado"), 
 								resultSet.getDouble("valor_frete"), 
 								listaDeItens
+								// O valor total é atualizado no construtor da classe
 				);
 				
 			}

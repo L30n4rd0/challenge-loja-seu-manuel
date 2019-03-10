@@ -149,9 +149,13 @@ public class ProdutosRest {
 			
 		} catch (ClassNotFoundException e) {
 			
+			mensagemRetorno = "Ocorreu um erro ao aplicar edição: " + e.getMessage();
+			
 			e.printStackTrace();
 			
 		} catch (SQLException e) {
+			
+			mensagemRetorno = "Ocorreu um erro ao aplicar edição: " + e.getMessage();
 			
 			e.printStackTrace();
 			
