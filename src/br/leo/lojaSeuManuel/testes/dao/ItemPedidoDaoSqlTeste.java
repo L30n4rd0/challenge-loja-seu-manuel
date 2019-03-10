@@ -54,9 +54,9 @@ class ItemPedidoDaoSqlTeste {
 			assertNotNull(itemPedido.getIdProduto());
 			assertNotNull(itemPedido.getCodigoProduto());
 			assertNotNull(itemPedido.getNomeProduto());
-			assertNotNull(itemPedido.getPrecoProduto());
+			assertNotNull(itemPedido.getPrecoProdutoVenda());
 			assertNotNull(itemPedido.getQuantidade());
-			assertNotNull(itemPedido.getPreco());
+			assertNotNull(itemPedido.getValorParcial());
 			
 		}
 		
@@ -102,9 +102,9 @@ class ItemPedidoDaoSqlTeste {
 		assertNotNull(itemBuscado.getIdProduto());
 		assertNotNull(itemBuscado.getCodigoProduto());
 		assertNotNull(itemBuscado.getNomeProduto());
-		assertNotNull(itemBuscado.getPrecoProduto());
+		assertNotNull(itemBuscado.getPrecoProdutoVenda());
 		assertNotNull(itemBuscado.getQuantidade());
-		assertNotNull(itemBuscado.getPreco());
+		assertNotNull(itemBuscado.getValorParcial());
 		
 		// Atualiza o objeto itemPedidoTemp com os IDs gerados no banco
 		// ao adicionar um novo registro
@@ -114,8 +114,8 @@ class ItemPedidoDaoSqlTeste {
 		// Atualiza o objeto itemPedidoTemp com os dados do produto
 		itemPedidoTemp.setCodigoProduto(produtoTemp.getCodigo());
 		itemPedidoTemp.setNomeProduto(produtoTemp.getNome());
-		itemPedidoTemp.setPrecoProduto(produtoTemp.getPreco());
-		itemPedidoTemp.atualizarPreco();
+		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
+//		itemPedidoTemp.atualizarValorParcial();
 		
 		// Testa se item pedido inserido no banco é igual (tem o mesmo conteúdo) do retornado na busca
 		assertTrue(itemPedidoTemp.equals( itemBuscado ));
@@ -243,6 +243,28 @@ class ItemPedidoDaoSqlTeste {
 		assertNull(itemPedidoDao.buscaPorId(idItemPedidoInserido));
 		
 		
+	}
+	
+	
+
+	/**
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDaoSql#ebuscaPorChaveEstrangeiraPedido(int)}.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 */
+	@Test
+	void testbuscaPorChaveEstrangeiraProduto() throws ClassNotFoundException, SQLException {
+		
+		List<ItemPedido> listaAtributosTemp = itemPedidoDao.buscaPorChaveEstrangeiraPedido(chaveEstrangeiraPedido);
+		
+		assertNotNull(listaAtributosTemp);
+		
+		assertTrue(listaAtributosTemp.size() > 0);
+		
+//		for (ItemPedido itemPedido : listaAtributosTemp) {
+//			System.out.println(itemPedido.getId());
+//		}
+//		
 	}
 
 }

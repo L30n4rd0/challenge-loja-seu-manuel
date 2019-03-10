@@ -24,5 +24,8 @@ public interface ItemPedidoDao {
 	
 	public void excluir(int id) throws ClassNotFoundException, SQLException;
 
+	List<ItemPedido> buscaPorChaveEstrangeiraPedido(int chaveEstrangeiraPedido)
+			throws ClassNotFoundException, SQLException;
+
 
 }

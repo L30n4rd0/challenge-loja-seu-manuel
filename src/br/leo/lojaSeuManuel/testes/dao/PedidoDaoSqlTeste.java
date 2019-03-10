@@ -64,19 +64,24 @@ class PedidoDaoSqlTeste {
 		int idProdutoInserido = produtoDao.adicionar(produtoTemp);
 		
 		// Adiciona o produto na lista de itens do pedido
-		listaItensPedido.add(new ItemPedido(idProdutoInserido, 2));
+		ItemPedido itemPedidoTemp = new ItemPedido(idProdutoInserido, 2);
+		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
+		listaItensPedido.add(itemPedidoTemp);
 		
 		// Edita os atributos do produto para adicionar um segundo produto no banco
 		produtoTemp.setCodigo("prod02");
 		produtoTemp.setDescricao("dvd pagode");
+		produtoTemp.setPreco(5);
 		produtoTemp.setEstoque(20);
 		
 		// Id do produto, gerado no banco durante a inserção
 		idProdutoInserido = produtoDao.adicionar(produtoTemp);
 		
 		// Adiciona o produto na lista de itens do pedido
-		listaItensPedido.add(new ItemPedido(idProdutoInserido, 3));
-
+		itemPedidoTemp = new ItemPedido(idProdutoInserido, 3);
+		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
+		listaItensPedido.add(itemPedidoTemp);
+		
 		// Pedido temporário utilizado nos testes
 		Pedido pedidoTemp = new Pedido(
 				"ped01", 
@@ -115,6 +120,7 @@ class PedidoDaoSqlTeste {
 		
 		// Testa se a lista tem ao menos 1 elemento
 		assertTrue(listaPedidosTemp.size() > 0);
+		
 		
 	}
 	
@@ -210,8 +216,8 @@ class PedidoDaoSqlTeste {
 		pedidoTemp = pedidoDao.buscaPorId(idPedidoInserido);
 		
 		// Realiza algumas alterações nos dados
-		pedidoTemp.setDataCompra(new Date(System.currentTimeMillis()));
 		pedidoTemp.setEstado(EstadoPedido.ENTREGUE.getValor());
+		pedidoTemp.setNomeComprador("lima");
 		pedidoTemp.setValorFrete(14);
 		
 		// Aplica as alterações no banco

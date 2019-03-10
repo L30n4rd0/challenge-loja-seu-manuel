@@ -17,11 +17,11 @@ public class ItemPedido {
 	
 	private String nomeProduto;
 	
-	private double precoProduto;
+	private double precoProdutoVenda;
 	
 	private int quantidade;
 	
-	private double preco;
+	private double valorParcial;
 	
 	
 	
@@ -63,26 +63,26 @@ public class ItemPedido {
 	 * @param idProduto
 	 * @param codigoProduto
 	 * @param nomeProduto
-	 * @param precoProduto
+	 * @param precoProdutoVenda
 	 * @param quantidade
-	 * @param preco
+	 * @param valorParcial
 	 */
-	public ItemPedido(int id, int idProduto, String codigoProduto, String nomeProduto, double precoProduto,
-			int quantidade, double preco) {
+	public ItemPedido(int id, int idProduto, String codigoProduto, String nomeProduto, double precoProdutoVenda,
+			int quantidade, double valorParcial) {
 		this.id = id;
 		this.idProduto = idProduto;
 		this.codigoProduto = codigoProduto;
 		this.nomeProduto = nomeProduto;
-		this.precoProduto = precoProduto;
+		this.precoProdutoVenda = precoProdutoVenda;
 		this.quantidade = quantidade;
-		this.preco = preco;
+		this.valorParcial = valorParcial;
 	}
 
 
 
 
-	public void atualizarPreco() {
-		this.preco = this.quantidade * this.precoProduto;
+	private void atualizarValorParcial() {
+		this.valorParcial = this.quantidade * this.precoProdutoVenda;
 	}
 	
 	
@@ -120,12 +120,13 @@ public class ItemPedido {
 		this.nomeProduto = nomeProduto;
 	}
 
-	public double getPrecoProduto() {
-		return precoProduto;
+	public double getPrecoProdutoVenda() {
+		return precoProdutoVenda;
 	}
 
-	public void setPrecoProduto(double precoProduto) {
-		this.precoProduto = precoProduto;
+	public void setPrecoProdutoVenda(double precoProduto) {
+		this.precoProdutoVenda = precoProduto;
+		atualizarValorParcial();
 	}
 
 	public int getQuantidade() {
@@ -134,10 +135,11 @@ public class ItemPedido {
 
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
+		atualizarValorParcial();
 	}
 
-	public double getPreco() {
-		return preco;
+	public double getValorParcial() {
+		return valorParcial;
 	}
 	
 	
@@ -167,13 +169,13 @@ public class ItemPedido {
 		if (!this.nomeProduto.equals(itemPedidoTemp.getNomeProduto()))
 			return false;
 		
-		if (this.precoProduto != itemPedidoTemp.getPrecoProduto())
+		if (this.precoProdutoVenda != itemPedidoTemp.getPrecoProdutoVenda())
 			return false;
 		
 		if (this.quantidade != itemPedidoTemp.quantidade)
 			return false;
 		
-		if (this.preco != itemPedidoTemp.getPreco())
+		if (this.valorParcial != itemPedidoTemp.getValorParcial())
 			return false;
 		
 		return true;

@@ -3,12 +3,13 @@
  */
 package br.leo.lojaSeuManuel.testes.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDao;
@@ -56,12 +57,7 @@ class AtributoCustomizavelDaoSqlTeste {
 		
 		List<AtributoCustomizavel> listaAtributosTemp = atributoDao.buscaPorChaveEstrangeiraProduto(idProduto);
 		
-//		for (AtributoCustomizavel atributoCustomizavel : listaAtributosTemp) {
-//			System.out.println(atributoCustomizavel.getId());
-//			System.out.println(atributoCustomizavel.getNome());
-//		}
-		
-//		assertNull(listaAtributosTemp);
+		assertNotNull(listaAtributosTemp);
 		
 		assertTrue(listaAtributosTemp.size() > 0);
 		
@@ -117,7 +113,7 @@ class AtributoCustomizavelDaoSqlTeste {
 		
 		int idAtributoInserido = 0;
 		
-		idAtributoInserido = atributoDao.adicionar(new AtributoCustomizavel("atributoNome", "333"), 1);
+		idAtributoInserido = atributoDao.adicionar(new AtributoCustomizavel("atributoNome", "333"), idProduto);
 		
 		Integer temp = idAtributoInserido;
 		
@@ -181,19 +177,19 @@ class AtributoCustomizavelDaoSqlTeste {
 	
 	
 	
-	@AfterAll
-	static void limparBanco() throws ClassNotFoundException, SQLException {
-		
-		List<AtributoCustomizavel> listaAtributosTemp = atributoDao.listar();
-		
-		for (AtributoCustomizavel atributoCustomizavel : listaAtributosTemp) {
-			
-			atributoDao.excluir(atributoCustomizavel.getId());
-			
-			assertNull(atributoDao.buscaPorId(atributoCustomizavel.getId()));
-			
-		}
-		
-	}
+//	@AfterAll
+//	static void limparBanco() throws ClassNotFoundException, SQLException {
+//		
+//		List<AtributoCustomizavel> listaAtributosTemp = atributoDao.listar();
+//		
+//		for (AtributoCustomizavel atributoCustomizavel : listaAtributosTemp) {
+//			
+//			atributoDao.excluir(atributoCustomizavel.getId());
+//			
+//			assertNull(atributoDao.buscaPorId(atributoCustomizavel.getId()));
+//			
+//		}
+//		
+//	}
 
 }

@@ -56,7 +56,8 @@ DROP TABLE IF EXISTS `bd_loja_seu_manuel`.`item_pedido` ;
 CREATE TABLE IF NOT EXISTS `bd_loja_seu_manuel`.`item_pedido` (
   `id_item_pedido` INT(11) NOT NULL AUTO_INCREMENT,
   `quantidade` INT NULL,
-  `preco` DOUBLE NULL,
+  `preco_produto_venda` DOUBLE NULL,
+  `valor_parcial` DOUBLE NULL,
   `fk_id_produto` INT(11) NOT NULL,
   `fk_id_pedido` INT(11) NOT NULL,
   PRIMARY KEY (`id_item_pedido`),
@@ -90,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `bd_loja_seu_manuel`.`atributo_customizavel` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

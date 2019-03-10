@@ -74,14 +74,22 @@ public class Pedido {
 		atualizarValorTotal();
 	}
 	
-	public void atualizarValorTotal() {
+	
+	
+	private void atualizarValorTotal() {
+		
 		this.valorTotal = this.valorFrete;
 		
 		for (ItemPedido itemPedido : this.itensDoPedido) {
-			this.valorTotal += itemPedido.getPreco();
+			
+			this.valorTotal += itemPedido.getValorParcial();
+			
 		}
 		
+		
 	}
+	
+	
 
 
 	public int getId() {
@@ -141,6 +149,7 @@ public class Pedido {
 
 	public void setValorFrete(double valorFrete) {
 		this.valorFrete = valorFrete;
+		atualizarValorTotal();
 	}
 
 
@@ -161,6 +170,7 @@ public class Pedido {
 
 	public void setItensDoPedido(List<ItemPedido> itensDoPedido) {
 		this.itensDoPedido = itensDoPedido;
+		atualizarValorTotal();
 	}
 
 
