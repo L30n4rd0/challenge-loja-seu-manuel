@@ -16,11 +16,11 @@ public interface ProdutoDao {
 	
 	public List<Produto> listar() throws ClassNotFoundException, SQLException;
 	
-	public Produto buscaPorId(int id) throws ClassNotFoundException, SQLException;
+	public Produto buscarPorId(int id) throws ClassNotFoundException, SQLException;
 	
-	public int adicionar(Produto produto) throws ClassNotFoundException, SQLException;
+	public int inserir(Produto produto) throws ClassNotFoundException, SQLException;
 	
-	public void editar(Produto produto) throws ClassNotFoundException, SQLException;
+	public void atualizar(Produto produto) throws ClassNotFoundException, SQLException;
 	
 	public void excluir(int id) throws ClassNotFoundException, SQLException;
 

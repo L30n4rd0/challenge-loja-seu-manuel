@@ -16,13 +16,13 @@ public interface AtributoCustomizavelDao {
 	
 	public List<AtributoCustomizavel> listar() throws ClassNotFoundException, SQLException;
 	
-	public AtributoCustomizavel buscaPorId(int id) throws ClassNotFoundException, SQLException;
+	public AtributoCustomizavel buscarPorId(int id) throws ClassNotFoundException, SQLException;
 	
-	public List<AtributoCustomizavel> buscaPorChaveEstrangeiraProduto(int chaveEstrangeiraProduto) throws ClassNotFoundException, SQLException;
+	public List<AtributoCustomizavel> buscarPorChaveEstrangeiraProduto(int chaveEstrangeiraProduto) throws ClassNotFoundException, SQLException;
 	
-	public int adicionar(AtributoCustomizavel atributoCustomizavel, int chaveEstrangeiraProduto) throws SQLException, ClassNotFoundException;
+	public int inserir(AtributoCustomizavel atributoCustomizavel, int chaveEstrangeiraProduto) throws SQLException, ClassNotFoundException;
 	
-	public void editar(AtributoCustomizavel atributoCustomizavel) throws ClassNotFoundException, SQLException;
+	public void atualizar(AtributoCustomizavel atributoCustomizavel) throws ClassNotFoundException, SQLException;
 	
 	public void excluir(int id) throws ClassNotFoundException, SQLException;
 

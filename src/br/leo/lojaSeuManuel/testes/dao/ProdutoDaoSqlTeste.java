@@ -70,17 +70,17 @@ class ProdutoDaoSqlTeste {
 	
 	
 	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql#buscaPorId(int)}.
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql#buscarPorId(int)}.
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testBuscaPorId() throws ClassNotFoundException, SQLException {
+	void testBuscarPorId() throws ClassNotFoundException, SQLException {
 
 		/**
 		 * Testando a SQLException ao buscar por id de atributo não cadastrado no banco
 		 */
-		assertNull(produtoDao.buscaPorId(0));
+		assertNull(produtoDao.buscarPorId(0));
 		
 		
 		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
@@ -91,11 +91,11 @@ class ProdutoDaoSqlTeste {
 		
 		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
 		
-		int idProdutoInserido = produtoDao.adicionar(produtoTemp);
+		int idProdutoInserido = produtoDao.inserir(produtoTemp);
 		
 		produtoTemp.setId(idProdutoInserido);
 		
-		Produto produtoBuscado = produtoDao.buscaPorId(idProdutoInserido);
+		Produto produtoBuscado = produtoDao.buscarPorId(idProdutoInserido);
 		
 		assertNotNull(produtoBuscado);
 		assertNotNull(produtoBuscado.getId());
@@ -133,12 +133,12 @@ class ProdutoDaoSqlTeste {
 	
 	
 	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql#adicionar(br.leo.lojaSeuManuel.modelo.vo.Produto)}.
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql#inserir(br.leo.lojaSeuManuel.modelo.vo.Produto)}.
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testAdicionar() throws ClassNotFoundException, SQLException {
+	void testInserir() throws ClassNotFoundException, SQLException {
 		
 		int idProdutoInserido = 0;
 		
@@ -150,12 +150,12 @@ class ProdutoDaoSqlTeste {
 		
 		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
 		
-		idProdutoInserido = produtoDao.adicionar(produtoTemp);
+		idProdutoInserido = produtoDao.inserir(produtoTemp);
 		
-		// Testa se o id do produto adicionado não é nulo
+		// Testa se o id do produto inserido não é nulo
 		assertNotNull(idProdutoInserido);
 		
-		// Testa se o id do produto adicionado é maior que zero
+		// Testa se o id do produto inserido é maior que zero
 		assertTrue(idProdutoInserido > 0);
 		
 	}
@@ -165,12 +165,12 @@ class ProdutoDaoSqlTeste {
 	
 	
 	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql#editar(br.leo.lojaSeuManuel.modelo.vo.Produto)}.
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql#atualizar(br.leo.lojaSeuManuel.modelo.vo.Produto)}.
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testEditar() throws ClassNotFoundException, SQLException {
+	void testAtualizar() throws ClassNotFoundException, SQLException {
 		
 		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
 		
@@ -180,11 +180,11 @@ class ProdutoDaoSqlTeste {
 		
 		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
 		
-		// Adiciona um novo produto no banco de dados
-		int idProdutoInserido = produtoDao.adicionar(produtoTemp);
+		// Insere um novo produto no banco de dados
+		int idProdutoInserido = produtoDao.inserir(produtoTemp);
 		
-		// Busca por id o produto adicionado previamente
-		produtoTemp = produtoDao.buscaPorId(idProdutoInserido);
+		// Busca por id o produto inserido previamente
+		produtoTemp = produtoDao.buscarPorId(idProdutoInserido);
 		
 		// Realiza algumas alterações nos dados
 		produtoTemp.setNome("cd");
@@ -195,22 +195,22 @@ class ProdutoDaoSqlTeste {
 		produtoTemp.getAtributosCustomizaveis().get(2).setValor("3kg");
 		
 		// Aplica as alterações no banco
-		produtoDao.editar(produtoTemp);
+		produtoDao.atualizar(produtoTemp);
 		
-		// Testa se o produto editado no banco têm os mesmos dados do produto 
+		// Testa se o produto atualizado no banco têm os mesmos dados do produto 
 		// antes de aplicar as alterações
-		assertTrue(produtoTemp.equals( produtoDao.buscaPorId(idProdutoInserido)) );
+		assertTrue(produtoTemp.equals( produtoDao.buscarPorId(idProdutoInserido)) );
 		
 		// Realiza mais algumas alterações
 		// Remove 1 dos atributos customizáveis
 		produtoTemp.getAtributosCustomizaveis().remove(0);
 		
 		// Aplica as alterações no banco
-		produtoDao.editar(produtoTemp);
+		produtoDao.atualizar(produtoTemp);
 		
-		// Testa se o produto editado no banco têm os mesmos dados do produto 
+		// Testa se o produto atualizado no banco têm os mesmos dados do produto 
 		// antes de aplicar as alterações 
-		assertTrue(produtoTemp.equals( produtoDao.buscaPorId(idProdutoInserido)) );
+		assertTrue(produtoTemp.equals( produtoDao.buscarPorId(idProdutoInserido)) );
 
 	}
 
@@ -230,11 +230,11 @@ class ProdutoDaoSqlTeste {
 		
 		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
 		
-		int idProdutoInserido = produtoDao.adicionar(produtoTemp);
+		int idProdutoInserido = produtoDao.inserir(produtoTemp);
 		
 		produtoDao.excluir(idProdutoInserido);
 		
-		assertNull(produtoDao.buscaPorId(idProdutoInserido));
+		assertNull(produtoDao.buscarPorId(idProdutoInserido));
 		
 		
 	}
@@ -249,7 +249,7 @@ class ProdutoDaoSqlTeste {
 //			
 //			produtoDao.excluir(atributoCustomizavel.getId());
 //			
-//			assertNull(produtoDao.buscaPorId(atributoCustomizavel.getId()));
+//			assertNull(produtoDao.buscarPorId(atributoCustomizavel.getId()));
 //			
 //		}
 //		

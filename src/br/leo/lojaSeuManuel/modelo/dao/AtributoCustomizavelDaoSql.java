@@ -81,10 +81,10 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 	
 	
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDao#buscaPorId(int)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDao#buscarPorId(int)
 	 */
 	@Override
-	public AtributoCustomizavel buscaPorId(int id) throws ClassNotFoundException, SQLException {
+	public AtributoCustomizavel buscarPorId(int id) throws ClassNotFoundException, SQLException {
 
 		PreparedStatement preparedStatement = null;
 		
@@ -129,10 +129,10 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 	
 
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDao#adicionar(br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDao#inserir(br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel)
 	 */
 	@Override
-	public int adicionar(AtributoCustomizavel atributoCustomizavel, int chaveEstrangeiraProduto) throws SQLException, ClassNotFoundException {
+	public int inserir(AtributoCustomizavel atributoCustomizavel, int chaveEstrangeiraProduto) throws SQLException, ClassNotFoundException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -176,10 +176,10 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 	
 
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDao#editar(br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDao#atualizar(br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel)
 	 */
 	@Override
-	public void editar(AtributoCustomizavel atributoCustomizavel) throws ClassNotFoundException, SQLException {
+	public void atualizar(AtributoCustomizavel atributoCustomizavel) throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -244,7 +244,7 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 
 
 	@Override
-	public List<AtributoCustomizavel> buscaPorChaveEstrangeiraProduto(int chaveEstrangeiraProduto)
+	public List<AtributoCustomizavel> buscarPorChaveEstrangeiraProduto(int chaveEstrangeiraProduto)
 			throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;

@@ -44,7 +44,7 @@ public class ProdutosRest {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
-	public List<Produto> list() {
+	public List<Produto> listar() {
 		
 		List<Produto> listaProdutos = null;
 		
@@ -81,7 +81,7 @@ public class ProdutosRest {
 		
 		try {
 			
-			produto = produtoDao.buscaPorId(idProduto);
+			produto = produtoDao.buscarPorId(idProduto);
 			
 		} catch (ClassNotFoundException e) {
 			
@@ -102,13 +102,13 @@ public class ProdutosRest {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
-	public String adicionar(Produto produto) {
+	public String inserir(Produto produto) {
 		
 		String mensagemRetorno = "Produto inserido id: ";
 		
 		try {
 			
-			int idGerado = produtoDao.adicionar(produto);
+			int idGerado = produtoDao.inserir(produto);
 			
 			mensagemRetorno += idGerado;
 			
@@ -122,7 +122,7 @@ public class ProdutosRest {
 			
 		}
 		
-		System.out.println("Executou o REST adicionar produto.");
+		System.out.println("Executou o REST inserir produto.");
 		
 		return mensagemRetorno;
 		
@@ -135,15 +135,15 @@ public class ProdutosRest {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
-	public String editar(Produto produto, @PathParam("id") int idProduto) {
+	public String atualizar(Produto produto, @PathParam("id") int idProduto) {
 		
-		String mensagemRetorno = "Produto editado id: ";
+		String mensagemRetorno = "Produto atualizado id: ";
 		
 		try {
 			
 			produto.setId(idProduto);
 			
-			produtoDao.editar(produto);
+			produtoDao.atualizar(produto);
 			
 			mensagemRetorno += idProduto;
 			
@@ -161,7 +161,7 @@ public class ProdutosRest {
 			
 		}
 		
-		System.out.println("Executou o REST editar produto por id.");
+		System.out.println("Executou o REST atualizar produto por id.");
 		
 		return mensagemRetorno;
 		

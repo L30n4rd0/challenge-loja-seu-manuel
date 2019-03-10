@@ -64,7 +64,7 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 				
 				int idProduto = resultSet.getInt("fk_id_produto");
 				
-				Produto produto = produtoDao.buscaPorId(idProduto);
+				Produto produto = produtoDao.buscarPorId(idProduto);
 				
 				listaDeItens.add(
 						
@@ -95,10 +95,10 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 	
 	
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDao#buscaPorId(int)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDao#buscarPorId(int)
 	 */
 	@Override
-	public ItemPedido buscaPorId(int id) throws ClassNotFoundException, SQLException {
+	public ItemPedido buscarPorId(int id) throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -131,7 +131,7 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 				
 				int idProduto = resultSet.getInt("fk_id_produto");
 				
-				Produto produto = produtoDao.buscaPorId(idProduto);
+				Produto produto = produtoDao.buscarPorId(idProduto);
 				
 				itemRetorno = new ItemPedido(
 						resultSet.getInt("id_item_pedido"), 
@@ -157,10 +157,10 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 	
 	
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDao#adicionar(br.leo.lojaSeuManuel.modelo.vo.ItemPedido)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDao#inserir(br.leo.lojaSeuManuel.modelo.vo.ItemPedido)
 	 */
 	@Override
-	public int adicionar(ItemPedido itemPedido, int chaveEstrangeiraPedido) throws ClassNotFoundException, SQLException {
+	public int inserir(ItemPedido itemPedido, int chaveEstrangeiraPedido) throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -178,7 +178,7 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 			preparedStatement = connection.prepareStatement(stringSQL, Statement.RETURN_GENERATED_KEYS);
 			
 			// Busca o preço do produto e coloca no preço de venda
-			itemPedido.setPrecoProdutoVenda( new ProdutoDaoSql().buscaPorId( itemPedido.getIdProduto() ).getPreco() );
+			itemPedido.setPrecoProdutoVenda( new ProdutoDaoSql().buscarPorId( itemPedido.getIdProduto() ).getPreco() );
 			
 			// Atualiza o valor parcial do item 
 			// valorParcial = quantidade * precoProdutoVenda
@@ -212,10 +212,10 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 	}
 
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDao#editar(br.leo.lojaSeuManuel.modelo.vo.ItemPedido)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDao#atualizar(br.leo.lojaSeuManuel.modelo.vo.ItemPedido)
 	 */
 	@Override
-	public void editar(ItemPedido itemPedido) throws ClassNotFoundException, SQLException {
+	public void atualizar(ItemPedido itemPedido) throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -229,7 +229,7 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 			preparedStatement = connection.prepareStatement(stringSQL);
 			
 			// Busca o preço do produto e coloca no preço de venda
-			itemPedido.setPrecoProdutoVenda( new ProdutoDaoSql().buscaPorId( itemPedido.getIdProduto() ).getPreco() );
+			itemPedido.setPrecoProdutoVenda( new ProdutoDaoSql().buscarPorId( itemPedido.getIdProduto() ).getPreco() );
 			
 			// Atualiza o valor parcial do item 
 			// valorParcial = quantidade * precoProdutoVenda
@@ -282,7 +282,7 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 	}
 	
 	@Override
-	public List<ItemPedido> buscaPorChaveEstrangeiraPedido(int chaveEstrangeiraPedido)
+	public List<ItemPedido> buscarPorChaveEstrangeiraPedido(int chaveEstrangeiraPedido)
 			throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
@@ -322,7 +322,7 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 				
 				int idProduto = resultSet.getInt("fk_id_produto");
 				
-				Produto produto = produtoDao.buscaPorId(idProduto);
+				Produto produto = produtoDao.buscarPorId(idProduto);
 				
 				listaDeItens.add(
 						

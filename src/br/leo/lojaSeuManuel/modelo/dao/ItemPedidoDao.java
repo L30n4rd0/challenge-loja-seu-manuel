@@ -16,15 +16,15 @@ public interface ItemPedidoDao {
 	
 	public List<ItemPedido> listar() throws ClassNotFoundException, SQLException;
 	
-	public ItemPedido buscaPorId(int id) throws ClassNotFoundException, SQLException;
+	public ItemPedido buscarPorId(int id) throws ClassNotFoundException, SQLException;
 	
-	int adicionar(ItemPedido itemPedido, int chaveEstrangeiraPedido) throws ClassNotFoundException, SQLException;
+	int inserir(ItemPedido itemPedido, int chaveEstrangeiraPedido) throws ClassNotFoundException, SQLException;
 	
-	public void editar(ItemPedido itemPedido) throws ClassNotFoundException, SQLException;
+	public void atualizar(ItemPedido itemPedido) throws ClassNotFoundException, SQLException;
 	
 	public void excluir(int id) throws ClassNotFoundException, SQLException;
 
-	List<ItemPedido> buscaPorChaveEstrangeiraPedido(int chaveEstrangeiraPedido)
+	List<ItemPedido> buscarPorChaveEstrangeiraPedido(int chaveEstrangeiraPedido)
 			throws ClassNotFoundException, SQLException;
 
 

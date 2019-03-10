@@ -65,7 +65,7 @@ public class PedidoDaoSql implements PedidoDao {
 				int idPedido = resultSet.getInt("id_pedido");
 				
 				// Busca no banco todos os itens de pedido com a chave estrangeira do pedido
-				List<ItemPedido> listaDeItens = itemPedidoDao.buscaPorChaveEstrangeiraPedido(idPedido);
+				List<ItemPedido> listaDeItens = itemPedidoDao.buscarPorChaveEstrangeiraPedido(idPedido);
 				
 				listaDePedidos.add(
 						
@@ -96,10 +96,10 @@ public class PedidoDaoSql implements PedidoDao {
 	
 	
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.PedidoDao#buscaPorId(int)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.PedidoDao#buscarPorId(int)
 	 */
 	@Override
-	public Pedido buscaPorId(int id) throws ClassNotFoundException, SQLException {
+	public Pedido buscarPorId(int id) throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -128,7 +128,7 @@ public class PedidoDaoSql implements PedidoDao {
 					
 				int idPedido = resultSet.getInt("id_pedido");
 				
-				List<ItemPedido> listaDeItens = itemPedidoDao.buscaPorChaveEstrangeiraPedido(idPedido);
+				List<ItemPedido> listaDeItens = itemPedidoDao.buscarPorChaveEstrangeiraPedido(idPedido);
 				
 				pedidoRetorno = new Pedido(
 								idPedido, 
@@ -156,10 +156,10 @@ public class PedidoDaoSql implements PedidoDao {
 	
 	
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.PedidoDao#adicionar(br.leo.lojaSeuManuel.modelo.vo.Pedido)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.PedidoDao#inserir(br.leo.lojaSeuManuel.modelo.vo.Pedido)
 	 */
 	@Override
-	public int adicionar(Pedido pedido) throws ClassNotFoundException, SQLException {
+	public int inserir(Pedido pedido) throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -195,7 +195,7 @@ public class PedidoDaoSql implements PedidoDao {
 				
 				for (ItemPedido itemPedido : pedido.getItensDoPedido()) {
 					
-					itemPedidoDao.adicionar(itemPedido, idGerado);
+					itemPedidoDao.inserir(itemPedido, idGerado);
 					
 				}
 				
@@ -214,10 +214,10 @@ public class PedidoDaoSql implements PedidoDao {
 	
 	
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.PedidoDao#editar(br.leo.lojaSeuManuel.modelo.vo.Pedido)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.PedidoDao#atualizar(br.leo.lojaSeuManuel.modelo.vo.Pedido)
 	 */
 	@Override
-	public void editar(Pedido pedido) throws ClassNotFoundException, SQLException {
+	public void atualizar(Pedido pedido) throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -245,7 +245,7 @@ public class PedidoDaoSql implements PedidoDao {
 			
 			for (ItemPedido itemPedido : pedido.getItensDoPedido()) {
 				
-				itemPedidoDao.editar(itemPedido);
+				itemPedidoDao.atualizar(itemPedido);
 				
 			}
 				

@@ -19,7 +19,7 @@
 	<!-- Serviço REST -->
 
 	<servlet>
-		<servlet-name>produtos.rest</servlet-name>
+		<servlet-name>loja.rest</servlet-name>
 
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 
@@ -40,7 +40,7 @@
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>produtos.rest</servlet-name>
+		<servlet-name>loja.rest</servlet-name>
 		<!-- Padrão de url para acessar o serviço rest -->
 		<url-pattern>/rest/*</url-pattern>  
 	</servlet-mapping>

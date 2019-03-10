@@ -61,23 +61,23 @@ class PedidoDaoSqlTeste {
 		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
 		
 		// Id do produto, gerado no banco durante a inserção
-		int idProdutoInserido = produtoDao.adicionar(produtoTemp);
+		int idProdutoInserido = produtoDao.inserir(produtoTemp);
 		
-		// Adiciona o produto na lista de itens do pedido
+		// Insere o produto na lista de itens do pedido
 		ItemPedido itemPedidoTemp = new ItemPedido(idProdutoInserido, 2);
 		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
 		listaItensPedido.add(itemPedidoTemp);
 		
-		// Edita os atributos do produto para adicionar um segundo produto no banco
+		// Atualiza os atributos do produto para inserir um segundo produto no banco
 		produtoTemp.setCodigo("prod02");
 		produtoTemp.setDescricao("dvd pagode");
 		produtoTemp.setPreco(5);
 		produtoTemp.setEstoque(20);
 		
 		// Id do produto, gerado no banco durante a inserção
-		idProdutoInserido = produtoDao.adicionar(produtoTemp);
+		idProdutoInserido = produtoDao.inserir(produtoTemp);
 		
-		// Adiciona o produto na lista de itens do pedido
+		// Insere o produto na lista de itens do pedido
 		itemPedidoTemp = new ItemPedido(idProdutoInserido, 3);
 		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
 		listaItensPedido.add(itemPedidoTemp);
@@ -108,9 +108,9 @@ class PedidoDaoSqlTeste {
 	@Test
 	void testListar() throws ClassNotFoundException, SQLException {
 		
-		// Adiciona alguns pedidos no banco
-		pedidoDao.adicionar(novoPedido());
-		pedidoDao.adicionar(novoPedido());
+		// Insere alguns pedidos no banco
+		pedidoDao.inserir(novoPedido());
+		pedidoDao.inserir(novoPedido());
 		
 		// Busca a lista de pedido
 		List<Pedido> listaPedidosTemp = pedidoDao.listar();
@@ -128,24 +128,24 @@ class PedidoDaoSqlTeste {
 	
 
 	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql#buscaPorId(int)}.
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql#buscarPorId(int)}.
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testBuscaPorId() throws ClassNotFoundException, SQLException {
+	void testBuscarPorId() throws ClassNotFoundException, SQLException {
 		
 		// Testa a busca de pedido que naão existe no banco
-		assertNull(pedidoDao.buscaPorId(0));
+		assertNull(pedidoDao.buscarPorId(0));
 		
 		// Pedido temporário utilizado nos testes
 		Pedido pedidoTemp = novoPedido();
 		
 		// Id do item de pedido, gerado no banco
-		int idPedidoInserido = pedidoDao.adicionar(pedidoTemp);
+		int idPedidoInserido = pedidoDao.inserir(pedidoTemp);
 		
 		// Busca o item inserido no banco através do id para confirmar a inserções dos dados
-		Pedido pedidoBuscado = pedidoDao.buscaPorId(idPedidoInserido);
+		Pedido pedidoBuscado = pedidoDao.buscarPorId(idPedidoInserido);
 		
 		// Testa se os dados retornados não são nulos
 		assertNotNull(pedidoBuscado);
@@ -158,7 +158,7 @@ class PedidoDaoSqlTeste {
 		assertNotNull(pedidoBuscado.getValorFrete());
 		assertNotNull(pedidoBuscado.getValorTotal());
 		
-//		// Edita o pedidoBusca e adiciona no banco como um novo pedido
+//		// Atualiza o pedidoBusca e insere no banco como um novo pedido
 //		pedidoTemp.setCodigo("ped02");
 //		pedidoTemp.setIdProduto(idProdutoInserido);
 //		
@@ -177,20 +177,20 @@ class PedidoDaoSqlTeste {
 	
 
 	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql#adicionar(br.leo.lojaSeuManuel.modelo.vo.Pedido)}.
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql#inserir(br.leo.lojaSeuManuel.modelo.vo.Pedido)}.
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testAdicionar() throws ClassNotFoundException, SQLException {
+	void testInserir() throws ClassNotFoundException, SQLException {
 		
 		// Id do pedido, gerado no banco
-		int idPedidoInserido = pedidoDao.adicionar(novoPedido());
+		int idPedidoInserido = pedidoDao.inserir(novoPedido());
 		
-		// Teste se o id pedido adicionado não é nulo
+		// Teste se o id pedido inserido não é nulo
 		assertNotNull(idPedidoInserido);
 		
-		// Testa se o id do pedido adicionado é maior que zero
+		// Testa se o id do pedido inserido é maior que zero
 		assertTrue(idPedidoInserido > 0);
 		
 	}
@@ -199,21 +199,21 @@ class PedidoDaoSqlTeste {
 	
 
 	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql#editar(br.leo.lojaSeuManuel.modelo.vo.Pedido)}.
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql#atualizar(br.leo.lojaSeuManuel.modelo.vo.Pedido)}.
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testEditar() throws ClassNotFoundException, SQLException {
+	void testAtualizar() throws ClassNotFoundException, SQLException {
 		
 		// Pedido temporário utilizado nos testes
 		Pedido pedidoTemp = novoPedido();
 		
 		// Id do pedido, gerado no banco
-		int idPedidoInserido = pedidoDao.adicionar(pedidoTemp);
+		int idPedidoInserido = pedidoDao.inserir(pedidoTemp);
 		
 		// Busca o pedido inserido no banco através do id
-		pedidoTemp = pedidoDao.buscaPorId(idPedidoInserido);
+		pedidoTemp = pedidoDao.buscarPorId(idPedidoInserido);
 		
 		// Realiza algumas alterações nos dados
 		pedidoTemp.setEstado(EstadoPedido.ENTREGUE.getValor());
@@ -221,11 +221,11 @@ class PedidoDaoSqlTeste {
 		pedidoTemp.setValorFrete(14);
 		
 		// Aplica as alterações no banco
-		pedidoDao.editar(pedidoTemp);
+		pedidoDao.atualizar(pedidoTemp);
 		
-		// Testa se o item editado no banco tem os mesmos dados do item 
-		// antes de adicionar as alterações no banco 
-		assertTrue(pedidoTemp.equals( pedidoDao.buscaPorId(idPedidoInserido)) );
+		// Testa se o item atualizado no banco tem os mesmos dados do item 
+		// antes de inserir as alterações no banco 
+		assertTrue(pedidoTemp.equals( pedidoDao.buscarPorId(idPedidoInserido)) );
 		
 		
 		
@@ -243,13 +243,13 @@ class PedidoDaoSqlTeste {
 	void testExcluir() throws ClassNotFoundException, SQLException {
 		
 		// Id do pedido, gerado no banco
-		int idPedidoInserido = pedidoDao.adicionar(novoPedido());
+		int idPedidoInserido = pedidoDao.inserir(novoPedido());
 		
 		// Exclui através item inserido através do id
 		pedidoDao.excluir(idPedidoInserido);
 		
 		// Testa se o pedido foi realmente excluído
-		assertNull(pedidoDao.buscaPorId(idPedidoInserido));
+		assertNull(pedidoDao.buscarPorId(idPedidoInserido));
 		
 		
 		

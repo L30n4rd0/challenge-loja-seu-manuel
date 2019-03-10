@@ -53,9 +53,9 @@ class AtributoCustomizavelDaoSqlTeste {
 	
 	
 	@Test
-	void testbuscaPorChaveEstrangeiraProduto() throws ClassNotFoundException, SQLException {
+	void testbuscarPorChaveEstrangeiraProduto() throws ClassNotFoundException, SQLException {
 		
-		List<AtributoCustomizavel> listaAtributosTemp = atributoDao.buscaPorChaveEstrangeiraProduto(idProduto);
+		List<AtributoCustomizavel> listaAtributosTemp = atributoDao.buscarPorChaveEstrangeiraProduto(idProduto);
 		
 		assertNotNull(listaAtributosTemp);
 		
@@ -67,26 +67,26 @@ class AtributoCustomizavelDaoSqlTeste {
 	
 	
 	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDaoSql#buscaPorId(int)}.
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDaoSql#buscarPorId(int)}.
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testBuscaPorId() throws ClassNotFoundException, SQLException {
+	void testBuscarPorId() throws ClassNotFoundException, SQLException {
 		
 		/**
 		 * Testando a SQLException ao buscar por id de atributo não cadastrado no banco
 		 */
-		assertNull(atributoDao.buscaPorId(0));
+		assertNull(atributoDao.buscarPorId(0));
 		
 		
 		AtributoCustomizavel atributoTemp = new AtributoCustomizavel("atributoNome", "333");
 		
-		int idAtributoInserido = atributoDao.adicionar(atributoTemp, idProduto);
+		int idAtributoInserido = atributoDao.inserir(atributoTemp, idProduto);
 		
 		atributoTemp.setId(idAtributoInserido);
 		
-		assertTrue(atributoTemp.equals( atributoDao.buscaPorId(idAtributoInserido) ));
+		assertTrue(atributoTemp.equals( atributoDao.buscarPorId(idAtributoInserido) ));
 	}
 	
 	
@@ -94,33 +94,33 @@ class AtributoCustomizavelDaoSqlTeste {
 	
 
 	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDaoSql#adicionar(br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel)}.
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDaoSql#inserir(br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel)}.
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testAdicionar() throws ClassNotFoundException, SQLException {
+	void testInserir() throws ClassNotFoundException, SQLException {
 		
 		/**
 		 * Testando a SQLException no caso onde fk_id_produto é zero
 //		 */
 //		assertThrows(SQLException.class, () -> {
 //			
-//	        atributoDao.adicionar(new AtributoCustomizavel("atributoNome", "333"), 0);
+//	        atributoDao.inserir(new AtributoCustomizavel("atributoNome", "333"), 0);
 //	        
 //	    });
 		
 		
 		int idAtributoInserido = 0;
 		
-		idAtributoInserido = atributoDao.adicionar(new AtributoCustomizavel("atributoNome", "333"), idProduto);
+		idAtributoInserido = atributoDao.inserir(new AtributoCustomizavel("atributoNome", "333"), idProduto);
 		
 		Integer temp = idAtributoInserido;
 		
 		assertTrue(temp instanceof Integer);
 		
 		/**
-		 * O método adicionar retorna o id gerado no banco de dados em caso de sucesso
+		 * O método inserir retorna o id gerado no banco de dados em caso de sucesso
 		 */
 		assertTrue(idAtributoInserido > 0);
 		
@@ -131,24 +131,24 @@ class AtributoCustomizavelDaoSqlTeste {
 	
 
 	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDaoSql#editar(br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel)}.
+	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDaoSql#atualizar(br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel)}.
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	void testEditar() throws ClassNotFoundException, SQLException {
+	void testAtualizar() throws ClassNotFoundException, SQLException {
 		
 		AtributoCustomizavel atributoTemp = new AtributoCustomizavel("atributoNome", "333");
 		
-		int idAtributoInserido = atributoDao.adicionar(atributoTemp, idProduto);
+		int idAtributoInserido = atributoDao.inserir(atributoTemp, idProduto);
 		
 		atributoTemp.setId(idAtributoInserido);
 		atributoTemp.setNome("aaa");
 		atributoTemp.setValor("555");
 		
-		atributoDao.editar(atributoTemp);
+		atributoDao.atualizar(atributoTemp);
 		
-		assertTrue(atributoTemp.equals( atributoDao.buscaPorId(idAtributoInserido)) );
+		assertTrue(atributoTemp.equals( atributoDao.buscarPorId(idAtributoInserido)) );
 		
 	}
 
@@ -166,11 +166,11 @@ class AtributoCustomizavelDaoSqlTeste {
 		
 		AtributoCustomizavel atributoTemp = new AtributoCustomizavel("atributoNome", "333");
 		
-		int idAtributoInserido = atributoDao.adicionar(atributoTemp, idProduto);
+		int idAtributoInserido = atributoDao.inserir(atributoTemp, idProduto);
 		
 		atributoDao.excluir(idAtributoInserido);
 		
-		assertNull(atributoDao.buscaPorId(idAtributoInserido));
+		assertNull(atributoDao.buscarPorId(idAtributoInserido));
 		
 	}
 	
@@ -186,7 +186,7 @@ class AtributoCustomizavelDaoSqlTeste {
 //			
 //			atributoDao.excluir(atributoCustomizavel.getId());
 //			
-//			assertNull(atributoDao.buscaPorId(atributoCustomizavel.getId()));
+//			assertNull(atributoDao.buscarPorId(atributoCustomizavel.getId()));
 //			
 //		}
 //		

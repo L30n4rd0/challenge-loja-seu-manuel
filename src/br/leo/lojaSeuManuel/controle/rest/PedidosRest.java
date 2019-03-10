@@ -18,10 +18,7 @@ import javax.ws.rs.core.MediaType;
 
 import br.leo.lojaSeuManuel.modelo.dao.PedidoDao;
 import br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql;
-import br.leo.lojaSeuManuel.modelo.dao.ProdutoDao;
-import br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql;
 import br.leo.lojaSeuManuel.modelo.vo.Pedido;
-import br.leo.lojaSeuManuel.modelo.vo.Produto;
 
 /**
  * @author leonardo
@@ -47,7 +44,7 @@ private static final String CHARSET_UTF8 = ";charset=utf-8";
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
-	public List<Pedido> list() {
+	public List<Pedido> listar() {
 		
 		List<Pedido> listaPedidos = null;
 		
@@ -85,7 +82,7 @@ private static final String CHARSET_UTF8 = ";charset=utf-8";
 		
 		try {
 			
-			pedido = pedidoDao.buscaPorId(idPedido);
+			pedido = pedidoDao.buscarPorId(idPedido);
 			
 		} catch (ClassNotFoundException e) {
 			
@@ -110,15 +107,15 @@ private static final String CHARSET_UTF8 = ";charset=utf-8";
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
-	public String editar(Pedido pedido, @PathParam("id") int idPedido) {
+	public String atualizar(Pedido pedido, @PathParam("id") int idPedido) {
 		
-		String mensagemRetorno = "Produto editado id: ";
+		String mensagemRetorno = "Produto atualizado id: ";
 		
 		try {
 			
 			pedido.setId(idPedido);
 			
-			pedidoDao.editar(pedido);
+			pedidoDao.atualizar(pedido);
 			
 			mensagemRetorno += idPedido;
 			
@@ -136,7 +133,7 @@ private static final String CHARSET_UTF8 = ";charset=utf-8";
 			
 		}
 		
-		System.out.println("Executou o REST editar pedido por id.");
+		System.out.println("Executou o REST atualizar pedido por id.");
 		
 		return mensagemRetorno;
 		
@@ -149,31 +146,31 @@ private static final String CHARSET_UTF8 = ";charset=utf-8";
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
-	public String adicionar(Pedido pedido) {
+	public String inserir(Pedido pedido) {
 		
 		String mensagemRetorno = "Produto inserido id: ";
 		
 		try {
 			
-			int idGerado = pedidoDao.adicionar(pedido);
+			int idGerado = pedidoDao.inserir(pedido);
 			
 			mensagemRetorno += idGerado;
 			
 		} catch (ClassNotFoundException e) {
 			
-			mensagemRetorno = "Ocorreu um erro ao adicionar: " + e.getMessage();
+			mensagemRetorno = "Ocorreu um erro ao inserir: " + e.getMessage();
 			
 			e.printStackTrace();
 			
 		} catch (SQLException e) {
 			
-			mensagemRetorno = "Ocorreu um erro ao adicionar: " + e.getMessage();
+			mensagemRetorno = "Ocorreu um erro ao inserir: " + e.getMessage();
 			
 			e.printStackTrace();
 			
 		}
 		
-		System.out.println("Executou o REST adicionar produto.");
+		System.out.println("Executou o REST inserir produto.");
 		
 		return mensagemRetorno;
 		

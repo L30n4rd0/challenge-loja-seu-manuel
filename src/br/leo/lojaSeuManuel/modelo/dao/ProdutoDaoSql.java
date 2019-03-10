@@ -65,7 +65,7 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 				int idProduto = resultSet.getInt("id_produto");
 				
-				List<AtributoCustomizavel> listaAtributosTemp = atributosDao.buscaPorChaveEstrangeiraProduto(idProduto);
+				List<AtributoCustomizavel> listaAtributosTemp = atributosDao.buscarPorChaveEstrangeiraProduto(idProduto);
 				
 				if (listaAtributosTemp == null) {
 					
@@ -104,10 +104,10 @@ public class ProdutoDaoSql implements ProdutoDao {
 	
 	
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.ProdutoDao#buscaPorId(int)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.ProdutoDao#buscarPorId(int)
 	 */
 	@Override
-	public Produto buscaPorId(int id) throws ClassNotFoundException, SQLException {
+	public Produto buscarPorId(int id) throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -134,7 +134,7 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 				int idProduto = resultSet.getInt("id_produto");
 				
-				List<AtributoCustomizavel> listaAtributos = atributosDao.buscaPorChaveEstrangeiraProduto(idProduto);
+				List<AtributoCustomizavel> listaAtributos = atributosDao.buscarPorChaveEstrangeiraProduto(idProduto);
 				
 				if (listaAtributos == null) {
 					
@@ -171,10 +171,10 @@ public class ProdutoDaoSql implements ProdutoDao {
 	
 	
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.ProdutoDao#adicionar(br.leo.lojaSeuManuel.modelo.vo.Produto)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.ProdutoDao#inserir(br.leo.lojaSeuManuel.modelo.vo.Produto)
 	 */
 	@Override
-	public int adicionar(Produto produto) throws ClassNotFoundException, SQLException {
+	public int inserir(Produto produto) throws ClassNotFoundException, SQLException {
 
 		PreparedStatement preparedStatement = null;
 		
@@ -209,7 +209,7 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 				for (AtributoCustomizavel atributo : produto.getAtributosCustomizaveis()) {
 					
-					atributoCustomizavelDao.adicionar(atributo, idGerado);
+					atributoCustomizavelDao.inserir(atributo, idGerado);
 					
 				}
 				
@@ -230,10 +230,10 @@ public class ProdutoDaoSql implements ProdutoDao {
 	
 	
 	/* (non-Javadoc)
-	 * @see br.leo.lojaSeuManuel.modelo.dao.ProdutoDao#editar(br.leo.lojaSeuManuel.modelo.vo.Produto)
+	 * @see br.leo.lojaSeuManuel.modelo.dao.ProdutoDao#atualizar(br.leo.lojaSeuManuel.modelo.vo.Produto)
 	 */
 	@Override
-	public void editar(Produto produto) throws ClassNotFoundException, SQLException {
+	public void atualizar(Produto produto) throws ClassNotFoundException, SQLException {
 		
 		PreparedStatement preparedStatement = null;
 		
@@ -263,7 +263,7 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 				for (AtributoCustomizavel atributoCustomizavel : listDeAtributos) {
 					
-					atributoCustomizavelDao.editar(atributoCustomizavel);
+					atributoCustomizavelDao.atualizar(atributoCustomizavel);
 					
 				}
 				
@@ -297,7 +297,7 @@ public class ProdutoDaoSql implements ProdutoDao {
 			
 			AtributoCustomizavelDao atributoCustomizavelDao = new AtributoCustomizavelDaoSql();
 			
-			List<AtributoCustomizavel> listaAtributos = atributoCustomizavelDao.buscaPorChaveEstrangeiraProduto(id);
+			List<AtributoCustomizavel> listaAtributos = atributoCustomizavelDao.buscarPorChaveEstrangeiraProduto(id);
 			
 			if (listaAtributos != null) {
 				
