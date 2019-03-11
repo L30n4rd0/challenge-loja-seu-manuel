@@ -89,6 +89,14 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao listar produtos" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao listar produtos" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -156,6 +164,14 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar o produto id: " + id + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar o produto id: " + id + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -215,6 +231,14 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 			}
 			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao inserir o produto codigo: " + produto.getCodigo() + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao inserir o produto codigo: " + produto.getCodigo() + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, null);
@@ -269,6 +293,14 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 			}
 			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao atualizar o produto id: " + produto.getId() + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao atualizar o produto id: " + produto.getId() + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, null);
@@ -314,6 +346,14 @@ public class ProdutoDaoSql implements ProdutoDao {
 			
 			preparedStatement.setInt(1, id);
 			preparedStatement.execute();
+			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao excluir o produto id: " + id + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao excluir o produto id: " + id + "\n\n" + classNotFoundException.getMessage());
 			
 		} finally {
 			

@@ -18,6 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 //import javax.ws.rs.ApplicationPath;
 
+import br.leo.lojaSeuManuel.controle.ControleProduto;
 import br.leo.lojaSeuManuel.modelo.dao.ProdutoDao;
 import br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql;
 import br.leo.lojaSeuManuel.modelo.vo.Produto;
@@ -31,13 +32,15 @@ import br.leo.lojaSeuManuel.modelo.vo.Produto;
 public class ProdutosRest {
 	private static final String CHARSET_UTF8 = ";charset=utf-8";
 	
-	private ProdutoDao produtoDao;
+	private ControleProduto controleProduto;
 	
 	
 	
 	@PostConstruct
 	private void init() {
-		produtoDao = new ProdutoDaoSql();
+		
+		this.controleProduto = new ControleProduto();
+		
 	}
 	
 	
@@ -50,15 +53,11 @@ public class ProdutosRest {
 		
 		try {
 			
-			listaProdutos = produtoDao.listar();
+			listaProdutos = controleProduto.listar();
 			
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
+		} catch (Exception exception) {
 			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
+			exception.printStackTrace();
 			
 		}
 		
@@ -81,15 +80,11 @@ public class ProdutosRest {
 		
 		try {
 			
-			produto = produtoDao.buscarPorId(idProduto);
+			produto = controleProduto.buscarPorId(idProduto);
 			
-		} catch (ClassNotFoundException e) {
+		} catch (Exception exception) {
 			
-			e.printStackTrace();
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
+			exception.printStackTrace();
 			
 		}
 		
@@ -104,22 +99,17 @@ public class ProdutosRest {
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
 	public String inserir(Produto produto) {
 		
-		String mensagemRetorno = "Produto inserido id: ";
+		String mensagemRetorno = "";
 		
 		try {
 			
-			int idGerado = produtoDao.inserir(produto);
+			mensagemRetorno = controleProduto.inserir(produto);
 			
-			mensagemRetorno += idGerado;
+		} catch (Exception exception) {
 			
-		} catch (ClassNotFoundException e) {
+			exception.printStackTrace();
 			
-			e.printStackTrace();
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-			
+			mensagemRetorno = exception.getMessage();
 		}
 		
 		System.out.println("Executou o REST inserir produto.");
@@ -143,21 +133,13 @@ public class ProdutosRest {
 			
 			produto.setId(idProduto);
 			
-			produtoDao.atualizar(produto);
+			mensagemRetorno = controleProduto.atualizar(produto);
 			
-			mensagemRetorno += idProduto;
+		} catch (Exception exception) {
 			
-		} catch (ClassNotFoundException e) {
+			mensagemRetorno = "Ocorreu um erro ao aplicar edição: " + exception.getMessage();
 			
-			mensagemRetorno = "Ocorreu um erro ao aplicar edição: " + e.getMessage();
-			
-			e.printStackTrace();
-			
-		} catch (SQLException e) {
-			
-			mensagemRetorno = "Ocorreu um erro ao aplicar edição: " + e.getMessage();
-			
-			e.printStackTrace();
+			exception.printStackTrace();
 			
 		}
 		
@@ -176,21 +158,17 @@ public class ProdutosRest {
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
 	public String excluirPorId(@PathParam("id") int idProduto) {
 		
-		String mensagemRetorno = "Produto excluido id: ";
+		String mensagemRetorno = "";
 		
 		try {
 			
-			produtoDao.excluir(idProduto);
+			mensagemRetorno = controleProduto.excluir(idProduto);
 			
-			mensagemRetorno += idProduto;
+		} catch (Exception exception) {
 			
-		} catch (ClassNotFoundException e) {
+			mensagemRetorno = "Ocorreu um erro ao excluir: " + exception.getMessage();
 			
-			e.printStackTrace();
-			
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
+			exception.printStackTrace();
 			
 		}
 		

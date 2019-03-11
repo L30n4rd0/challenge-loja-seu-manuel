@@ -82,6 +82,14 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 				
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar lista de itens" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar lista de itens" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -145,6 +153,14 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 				
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar item" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar item" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -177,14 +193,6 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 			connection = ConexaoSql.getConnection();
 			preparedStatement = connection.prepareStatement(stringSQL, Statement.RETURN_GENERATED_KEYS);
 			
-			// Busca o preço do produto e coloca no preço de venda
-			itemPedido.setPrecoProdutoVenda( new ProdutoDaoSql().buscarPorId( itemPedido.getIdProduto() ).getPreco() );
-			
-			// Atualiza o valor parcial do item 
-			// valorParcial = quantidade * precoProdutoVenda
-//			itemPedido.atualizarValorParcial();
-			
-			
 			preparedStatement.setInt(1, itemPedido.getQuantidade());
 			preparedStatement.setDouble(2, itemPedido.getPrecoProdutoVenda());
 			preparedStatement.setDouble(3, itemPedido.getValorParcial());
@@ -200,6 +208,14 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 				idGerado = resultSet.getInt(1);
 				
 			}
+			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao inserir item de pedido" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao inserir item de pedido" + "\n\n" + classNotFoundException.getMessage());
 			
 		} finally {
 			
@@ -228,14 +244,6 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 			connection = ConexaoSql.getConnection();
 			preparedStatement = connection.prepareStatement(stringSQL);
 			
-			// Busca o preço do produto e coloca no preço de venda
-			itemPedido.setPrecoProdutoVenda( new ProdutoDaoSql().buscarPorId( itemPedido.getIdProduto() ).getPreco() );
-			
-			// Atualiza o valor parcial do item 
-			// valorParcial = quantidade * precoProdutoVenda
-//			itemPedido.atualizarValorParcial();
-			
-			
 			preparedStatement.setInt(1, itemPedido.getQuantidade());
 			preparedStatement.setDouble(2, itemPedido.getPrecoProdutoVenda());
 			preparedStatement.setDouble(3, itemPedido.getValorParcial());
@@ -243,6 +251,14 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 			preparedStatement.setInt(5, itemPedido.getId());
 			
 			preparedStatement.execute();
+			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao atualizar item de pedido" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao atualizar item de pedido" + "\n\n" + classNotFoundException.getMessage());
 			
 		} finally {
 			
@@ -273,6 +289,14 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 			
 			preparedStatement.setInt(1, id);
 			preparedStatement.execute();
+			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao excluir item de pedido" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao excluir item de pedido" + "\n\n" + classNotFoundException.getMessage());
 			
 		} finally {
 			
@@ -340,6 +364,14 @@ public class ItemPedidoDaoSql implements ItemPedidoDao {
 				
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar lista itens de pedido" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar lista itens de pedido" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);

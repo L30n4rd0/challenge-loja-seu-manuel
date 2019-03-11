@@ -65,6 +65,14 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 				
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar lista de atributos" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar lista de atributos" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -115,6 +123,14 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 				);
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar atributo do produto" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar atributo do produto" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -162,6 +178,14 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 				
 			}
 			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao inserir atributo" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao inserir atributo" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -198,6 +222,14 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 			
 			preparedStatement.execute();
 			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao atualizar atributo" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao atualizar atributo" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, null);
@@ -229,6 +261,14 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 			
 			preparedStatement.setInt(1, id);
 			preparedStatement.execute();
+			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao excluir atributo" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao excluir atributo" + "\n\n" + classNotFoundException.getMessage());
 			
 		} finally {
 			
@@ -284,6 +324,14 @@ public class AtributoCustomizavelDaoSql implements AtributoCustomizavelDao {
 				
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar lista de atributos" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar lista de atributos" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);

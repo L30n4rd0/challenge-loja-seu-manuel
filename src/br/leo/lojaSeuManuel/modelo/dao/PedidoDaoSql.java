@@ -83,6 +83,14 @@ public class PedidoDaoSql implements PedidoDao {
 				
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar lista de pedidos" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar lista de pedidos" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -143,6 +151,14 @@ public class PedidoDaoSql implements PedidoDao {
 				
 			}
 				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar lista de pedidos" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar lista de pedidos" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -201,6 +217,14 @@ public class PedidoDaoSql implements PedidoDao {
 				
 			}
 			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao inserir pedido" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao inserir pedido" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
@@ -250,6 +274,14 @@ public class PedidoDaoSql implements PedidoDao {
 			}
 				
 			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao atualizar pedido" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao atualizar pedido" + "\n\n" + classNotFoundException.getMessage());
+			
 		} finally {
 			
 			ConexaoSql.closeConnection(connection, preparedStatement, null);
@@ -280,6 +312,14 @@ public class PedidoDaoSql implements PedidoDao {
 			preparedStatement.setInt(1, id);
 			
 			preparedStatement.execute();
+			
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao excluir pedido" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao excluir pedido" + "\n\n" + classNotFoundException.getMessage());
 			
 		} finally {
 			
