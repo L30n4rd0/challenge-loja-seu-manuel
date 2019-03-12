@@ -6,11 +6,8 @@ package br.leo.lojaSeuManuel.controle;
 import java.sql.Date;
 import java.util.List;
 
-import br.leo.lojaSeuManuel.modelo.dao.ProdutoDao;
-import br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql;
 import br.leo.lojaSeuManuel.modelo.vo.ItemPedido;
 import br.leo.lojaSeuManuel.modelo.vo.Pedido;
-import br.leo.lojaSeuManuel.modelo.vo.Produto;
 import br.leo.lojaSeuManuel.util.EstadoPedido;
 
 /**
@@ -46,31 +43,9 @@ public class ValidadorPedido {
 	
 	private void validarItensPedido(List<ItemPedido> itensDoPedido) throws Exception {
 		
-		ProdutoDao produtoDao = new ProdutoDaoSql();
-		
-		ValidadorItemPedido validadorItemPedido;
-		
-		Produto produto;
+		ValidadorItemPedido validadorItemPedido = new ValidadorItemPedido();
 		
 		for (ItemPedido itemPedido : itensDoPedido) {
-			
-			produto = produtoDao.buscarPorId(itemPedido.getIdProduto());
-			
-			if (produto == null) {
-				
-				throw new Exception("O produto de id: " + itemPedido.getIdProduto() + " não está cadastrado");
-				
-			}
-			
-			// Coloca o preço do produto cadastrado no banco e coloca no preço de venda
-			// Este método também atualiza o valor parcial do item através do interno atualizarValorParcial()
-			itemPedido.setPrecoProdutoVenda( produto.getPreco() );
-			
-			// Atualiza o objeto itemPedido com os dados do produto
-			itemPedido.setCodigoProduto( produto.getCodigo() );
-			itemPedido.setNomeProduto( produto.getNome() );
-			
-			validadorItemPedido = new ValidadorItemPedido(produto);
 			
 			validadorItemPedido.validarItemPedido(itemPedido);
 			

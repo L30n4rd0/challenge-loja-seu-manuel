@@ -3,10 +3,12 @@
  */
 package br.leo.lojaSeuManuel.modelo.dao;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
 import br.leo.lojaSeuManuel.modelo.vo.Pedido;
+import br.leo.lojaSeuManuel.modelo.vo.Periodo;
 
 /**
  * @author leonardo
@@ -15,6 +17,8 @@ import br.leo.lojaSeuManuel.modelo.vo.Pedido;
 public interface PedidoDao {
 	
 	public List<Pedido> listar() throws ClassNotFoundException, SQLException;
+	
+	public List<Pedido> listarPorPeriodo(Periodo periodo) throws ClassNotFoundException, SQLException;
 	
 	public Pedido buscarPorId(int id) throws ClassNotFoundException, SQLException;
 	

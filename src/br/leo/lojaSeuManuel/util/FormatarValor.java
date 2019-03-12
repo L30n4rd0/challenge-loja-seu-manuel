@@ -1,13 +1,25 @@
 package br.leo.lojaSeuManuel.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class FormatarValor {
 	
-	public static double formatarDoube(double valor) {
+	public static double formatarDoubeParaDoisDecimais(double valor) {
 		
-		String resultado = String.format("%.2f", valor);
+		return formatarDouble(valor, 2);
 		
-		return Double.parseDouble(resultado);
-		
+	}
+	
+	public static double formatarDouble(double valor, int casasDecimais) {
+	    
+		if (casasDecimais < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bigDecimal = new BigDecimal(valor);
+	    
+	    bigDecimal = bigDecimal.setScale(casasDecimais, RoundingMode.HALF_UP);
+	    
+	    return bigDecimal.doubleValue();
 	}
 
 }

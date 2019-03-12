@@ -86,7 +86,7 @@ public class ItemPedido {
 	private void atualizarValorParcial() {
 		this.valorParcial = this.quantidade * this.precoProdutoVenda;
 		
-		this.valorParcial = FormatarValor.formatarDoube(this.valorParcial);
+		this.valorParcial = FormatarValor.formatarDoubeParaDoisDecimais(this.valorParcial);
 	}
 	
 	

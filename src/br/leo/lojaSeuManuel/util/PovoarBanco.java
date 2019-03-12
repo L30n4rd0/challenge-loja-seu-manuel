@@ -28,7 +28,6 @@ public class PovoarBanco {
 	
 	private int quantidadePedidos = 50;
 	
-	
 	private ControleProduto controleProduto = new ControleProduto();
 	
 	private ControlePedido controlePedido = new ControlePedido();
@@ -36,9 +35,6 @@ public class PovoarBanco {
 	private Locale brasil = new Locale("pt", "BR");
 	
 	private Faker faker = new Faker(brasil);
-	
-	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", brasil);
-	
 	
 	
 	//////////// MAIN /////////////////
@@ -50,21 +46,23 @@ public class PovoarBanco {
 	
 	
 	
+	
 	public void povoar() throws Exception {
 		
-		List<Integer> listaIdsProdutosCadstrados = inserirProdutos();
+		List<Integer> listaIdsProdutosCadstrados = inserirProdutos(quantidadeProdutos);
 		
-		interirPedidos(listaIdsProdutosCadstrados);
+		interirPedidos(quantidadePedidos, listaIdsProdutosCadstrados);
 		
 	}
 	
 	
-	private void interirPedidos(List<Integer> listaIdsProdutosCadstrados) throws Exception {
+	
+	
+	
+	
+	public List<Integer> interirPedidos(int quantidadePedidos, List<Integer> listaIdsProdutosCadstrados) throws Exception {
 		
-		Date dataInicial = new Date(simpleDateFormat.parse("01-01-2008").getTime());
-		
-		Date dataFinal = new Date(System.currentTimeMillis());
-		
+		List<Integer> listaIdsPedidosCadstrados = new ArrayList<Integer>();
 		
 		/*
 		 * Gerador de pedidos
@@ -72,44 +70,63 @@ public class PovoarBanco {
 		
 		for (int i = 0; i < quantidadePedidos; i++) {
 			
-			String pedidoNomeComprador= faker.name().nameWithMiddle();
+			Pedido novoPedido = gerarNovoPedido(listaIdsProdutosCadstrados);
 			
-			Date pedidoDateCcompra = faker.date().between(dataInicial, dataFinal);
+			int idPedidoInserido = controlePedido.inserir(novoPedido);
 			
-			String pedidoCodigo = "ped" + faker.number().numberBetween(100, 500);
-			
-			String pedidoValorFrete = faker.commerce().price(10, 40);
-			
-			String pedidoEstado = gerarEstado();
-			
-			
-			List<ItemPedido> listaItensPedido = gerarListaItensPedido(listaIdsProdutosCadstrados);
-			
-			controlePedido.inserir(
-					
-					new Pedido(
-							pedidoCodigo, 
-							new java.sql.Date(pedidoDateCcompra.getTime()), 
-							pedidoNomeComprador, 
-							pedidoEstado, 
-							FormatarValor.formatarDoube(Double.parseDouble(pedidoValorFrete)), 
-							listaItensPedido
-					)
-					
-			);
+			listaIdsPedidosCadstrados.add(idPedidoInserido);
 			
 			System.out.println("Pedidos inseridos: " + (i + 1));
 			
 		}
+		return listaIdsPedidosCadstrados;
 		
 	}
 
 
+	
+	
+	
+	public Pedido gerarNovoPedido(List<Integer> listaIdsProdutosCadstrados) throws Exception {
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date dataInicial = new Date(simpleDateFormat.parse("2008-01-01").getTime());
+		
+		Date dataFinal = new Date(System.currentTimeMillis());
+		
+		String pedidoNomeComprador= faker.name().nameWithMiddle();
+		
+		Date pedidoDateCcompra = faker.date().between(dataInicial, dataFinal);
+		
+		String pedidoCodigo = "ped" + faker.number().numberBetween(100, 500);
+		
+		String pedidoValorFrete = faker.commerce().price(10, 40);
+		
+		String pedidoEstado = gerarEstado();
+		
+		List<ItemPedido> listaItensPedido = gerarListaItensPedido(listaIdsProdutosCadstrados);
+		
+		return new Pedido(
+				pedidoCodigo, 
+				new java.sql.Date(pedidoDateCcompra.getTime()), 
+				pedidoNomeComprador, 
+				pedidoEstado, 
+				FormatarValor.formatarDoubeParaDoisDecimais(Double.parseDouble(pedidoValorFrete)), 
+				listaItensPedido
+		);
+		
+	}
+
+
+
+	
+	
 	private List<ItemPedido> gerarListaItensPedido(List<Integer> listaIdsProdutosCadstrados) {
 		
 		List<ItemPedido> listaItensPedido = new ArrayList<ItemPedido>();
 		
-		int itensPorPedido = faker.number().numberBetween(2, 5);
+		int itensPorPedido = faker.number().numberBetween(2, 10);
 		
 		for (int j = 0; j < itensPorPedido; j++) {
 			
@@ -129,6 +146,9 @@ public class PovoarBanco {
 
 
 
+	
+	
+	
 	private String gerarEstado() {
 		
 		int indiceEstado = faker.number().numberBetween(10, 49);
@@ -168,7 +188,9 @@ public class PovoarBanco {
 
 
 
-	private List<Integer> inserirProdutos() throws Exception {
+	
+	
+	public List<Integer> inserirProdutos(int quantidadeProdutos) throws Exception {
 		
 		List<Integer> listaIdsProdutosCadstrados = new ArrayList<Integer>();
 		
@@ -178,32 +200,15 @@ public class PovoarBanco {
 		 */
 		for (int i = 0; i < quantidadeProdutos; i++) {
 			
-			String produtoPreco = faker.commerce().price();
-			
-			String produtoNome = faker.commerce().productName();
-			
-			int produtoEstoque = faker.number().numberBetween(500, 1000);
-			
-			String produtoCodigo = "prod" + faker.number().numberBetween(100, 500);
-			
-			String produtoDescricao = faker.lorem().sentence();
-			
-			List<AtributoCustomizavel> atributosCustomizaveis = gerarAtributosCustomizaveis();
-			
 			listaIdsProdutosCadstrados.add(
 					
 					controleProduto.inserir(
-							new Produto(
-							produtoCodigo, 
-							produtoNome, 
-							produtoDescricao, 
-							produtoEstoque, 
-							FormatarValor.formatarDoube(Double.parseDouble(produtoPreco)), 
-							atributosCustomizaveis
-							)
+							gerarNovoProduto()
 					)
 					
 			);
+			
+			
 			
 			System.out.println("Produtos inseridos: " + (i + 1));
 			
@@ -215,6 +220,39 @@ public class PovoarBanco {
 	}
 
 
+	
+	
+	
+	public Produto gerarNovoProduto() {
+		
+
+		String produtoPreco = faker.commerce().price();
+		
+		String produtoNome = faker.commerce().productName();
+		
+		int produtoEstoque = faker.number().numberBetween(100, 200);
+		
+		String produtoCodigo = "prod" + faker.number().numberBetween(100, 999);
+		
+		String produtoDescricao = faker.lorem().sentence();
+		
+		List<AtributoCustomizavel> atributosCustomizaveis = gerarAtributosCustomizaveis();
+
+		return new Produto(
+				produtoCodigo, 
+				produtoNome, 
+				produtoDescricao, 
+				produtoEstoque, 
+				FormatarValor.formatarDoubeParaDoisDecimais(Double.parseDouble(produtoPreco)), 
+				atributosCustomizaveis
+				);
+		
+	}
+
+
+
+	
+	
 	private List<AtributoCustomizavel> gerarAtributosCustomizaveis() {
 		
 		List<AtributoCustomizavel> listaAtributosCustomizaveis = new ArrayList<AtributoCustomizavel>();

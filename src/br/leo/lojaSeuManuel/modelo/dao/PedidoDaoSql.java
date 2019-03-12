@@ -4,6 +4,7 @@
 package br.leo.lojaSeuManuel.modelo.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.util.List;
 import br.leo.lojaSeuManuel.modelo.dao.conexao.ConexaoSql;
 import br.leo.lojaSeuManuel.modelo.vo.ItemPedido;
 import br.leo.lojaSeuManuel.modelo.vo.Pedido;
+import br.leo.lojaSeuManuel.modelo.vo.Periodo;
 
 /**
  * @author leonardo
@@ -327,6 +329,87 @@ public class PedidoDaoSql implements PedidoDao {
 			
 		}
 
+	}
+
+	
+	
+
+
+	@Override
+	public List<Pedido> listarPorPeriodo(Periodo periodo) throws ClassNotFoundException, SQLException {
+		
+		PreparedStatement preparedStatement = null;
+		
+		Connection connection = null;
+		
+		ResultSet resultSet = null;
+		
+		String stringSQL="SELECT * FROM pedido where data_compra >= ? and data_compra <= ?";
+		
+		List<Pedido> listaDePedidos = null;
+		
+		try {
+			connection = ConexaoSql.getConnection();
+			
+			preparedStatement = connection.prepareStatement(stringSQL);
+			
+			preparedStatement.setDate(1, periodo.getDataInicial());
+			preparedStatement.setDate(2, periodo.getDataFinal());
+			
+			resultSet = preparedStatement.executeQuery();
+			
+			ItemPedidoDao itemPedidoDao = null;
+
+			while (resultSet.next()) {
+				
+				if (listaDePedidos == null) {
+					
+					listaDePedidos = new ArrayList<Pedido>();
+					
+				}
+				
+				if (itemPedidoDao == null) {
+					
+					itemPedidoDao = new ItemPedidoDaoSql();
+					
+				}
+				
+				int idPedido = resultSet.getInt("id_pedido");
+				
+				// Busca no banco todos os itens de pedido com a chave estrangeira do pedido
+				List<ItemPedido> listaDeItens = itemPedidoDao.buscarPorChaveEstrangeiraPedido(idPedido);
+				
+				listaDePedidos.add(
+						
+						new Pedido(
+								idPedido, 
+								resultSet.getString("codigo"), 
+								resultSet.getDate("data_compra"), 
+								resultSet.getString("nome_comprador"), 
+								resultSet.getString("estado"), 
+								resultSet.getDouble("valor_frete"), 
+								listaDeItens
+								// O valor total é atualizado no construtor da classe
+						)
+				);
+				
+			}
+				
+		} catch (SQLException sqlException) {
+			
+			throw new SQLException("Erro ao buscar lista de pedidos" + "\n\n" + sqlException.getMessage());
+			
+		} catch (ClassNotFoundException classNotFoundException) {
+			
+			throw new SQLException("Erro ao buscar lista de pedidos" + "\n\n" + classNotFoundException.getMessage());
+			
+		} finally {
+			
+			ConexaoSql.closeConnection(connection, preparedStatement, resultSet);
+			
+		}
+		
+		return listaDePedidos;
 	}
 
 }

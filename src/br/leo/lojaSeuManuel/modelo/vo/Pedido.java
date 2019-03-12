@@ -88,7 +88,7 @@ public class Pedido {
 			
 		}
 		
-		this.valorTotal = FormatarValor.formatarDoube(this.valorTotal);
+		this.valorTotal = FormatarValor.formatarDoubeParaDoisDecimais(this.valorTotal);
 		
 		
 	}
