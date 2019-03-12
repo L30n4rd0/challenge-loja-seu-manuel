@@ -6,6 +6,8 @@ package br.leo.lojaSeuManuel.modelo.vo;
 import java.sql.Date;
 import java.util.List;
 
+import br.leo.lojaSeuManuel.util.FormatarValor;
+
 /**
  * @author leonardo
  *
@@ -76,7 +78,7 @@ public class Pedido {
 	
 	
 	
-	private void atualizarValorTotal() {
+	public void atualizarValorTotal() {
 		
 		this.valorTotal = this.valorFrete;
 		
@@ -85,6 +87,8 @@ public class Pedido {
 			this.valorTotal += itemPedido.getValorParcial();
 			
 		}
+		
+		this.valorTotal = FormatarValor.formatarDoube(this.valorTotal);
 		
 		
 	}

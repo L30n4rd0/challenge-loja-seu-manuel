@@ -25,7 +25,6 @@ public class ValidadorProduto {
 		validarPreco(produto.getPreco());
 		
 		
-		
 	}
 	
 	
@@ -67,7 +66,7 @@ public class ValidadorProduto {
 			
 			throw new Exception("A descrição não pode ser vazio!");
 			
-		} else if (descricao.length() > 45) {
+		} else if (descricao.length() > 100) {
 			
 			throw new Exception("A descrição não pode ter mais que 100 caracteres!");
 			

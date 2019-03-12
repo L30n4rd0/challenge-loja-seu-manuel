@@ -2,7 +2,8 @@ package br.leo.lojaSeuManuel.controle;
 
 import java.util.List;
 
-import br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql;
+import br.leo.lojaSeuManuel.modelo.dao.PedidoDao;
+import br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql;
 import br.leo.lojaSeuManuel.modelo.vo.Pedido;
 
 
@@ -12,40 +13,65 @@ import br.leo.lojaSeuManuel.modelo.vo.Pedido;
  */
 public class ControlePedido {
 	
-
-	public List<Pedido> listar() {
-		return null;
+	private PedidoDao pedidoDao;
+	
+	private ValidadorPedido validadorPedido;
+	
+	/**
+	 * @param pedidoDao
+	 * @param validadorPedido
+	 */
+	public ControlePedido() {
+		this.pedidoDao = new PedidoDaoSql();
+		this.validadorPedido = new ValidadorPedido();
 	}
 
-	public Pedido buscarPorId(int id) {
-		return null;
+	public List<Pedido> listar() throws Exception {
+		
+		return pedidoDao.listar();
+		
 	}
 
-	public String inserir(Pedido pedido) {
+	public Pedido buscarPorId(int id) throws Exception {
 		
-		// Busca o preço do produto e coloca no preço de venda
-//		itemPedido.setPrecoProdutoVenda( new ProdutoDaoSql().buscarPorId( itemPedido.getIdProduto() ).getPreco() );
+		return pedidoDao.buscarPorId(id);
 		
-		// Atualiza o valor parcial do item 
-		// valorParcial = quantidade * precoProdutoVenda
-//					itemPedido.atualizarValorParcial();
-		return null;
 	}
 
-	public String atualizar(Pedido pedido) {
+	public int inserir(Pedido pedido) throws Exception {
 		
-		// Busca o preço do produto e coloca no preço de venda
-//		itemPedido.setPrecoProdutoVenda( new ProdutoDaoSql().buscarPorId( itemPedido.getIdProduto() ).getPreco() );
-		
-		// Atualiza o valor parcial do item 
-		// valorParcial = quantidade * precoProdutoVenda
-//					itemPedido.atualizarValorParcial();
-		return null;
+		validadorPedido.validarPedido(pedido);
 
+		return pedidoDao.inserir(pedido);
 	}
 
-	public String excluir(int id) {
-		return null;
+	public String atualizar(Pedido pedido) throws Exception {
+		
+		if (pedidoDao.buscarPorId(pedido.getId()) == null) {
+			
+			throw new Exception("Pedido não cadastrado!");
+			
+		}
+		
+		validadorPedido.validarPedido(pedido);
+
+		pedidoDao.atualizar(pedido);
+		
+		return "Produto atualizado id: " + pedido.getId();
+		
+	}
+
+	public String excluir(int id) throws Exception {
+		
+		if (pedidoDao.buscarPorId(id) == null) {
+			
+			throw new Exception("Pedido não cadastrado!");
+			
+		}
+		
+		pedidoDao.excluir(id);
+		
+		return "Pedido excuído id: " + id;
 
 	}
 

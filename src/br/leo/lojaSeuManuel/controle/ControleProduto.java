@@ -46,17 +46,23 @@ public class ControleProduto {
 	
 	
 
-	public String inserir(Produto produto) throws Exception {
+	public int inserir(Produto produto) throws Exception {
 		
 		validador.validarProduto(produto);
 		
-		return "Produto inserido id: " + produtoDao.inserir(produto);
+		return produtoDao.inserir(produto);
 		
 	}
 	
 	
 
 	public String atualizar(Produto produto) throws Exception {
+		
+		if (produtoDao.buscarPorId(produto.getId()) == null) {
+			
+			throw new Exception("Produto não cadastrado!");
+			
+		}
 		
 		validador.validarProduto(produto);
 		
@@ -69,6 +75,12 @@ public class ControleProduto {
 	
 
 	public String excluir(int id) throws Exception {
+		
+		if (produtoDao.buscarPorId(id) == null) {
+			
+			throw new Exception("Produto não cadastrado!");
+			
+		}
 		
 		produtoDao.excluir(id);
 		

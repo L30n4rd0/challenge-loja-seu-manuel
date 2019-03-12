@@ -3,7 +3,6 @@
  */
 package br.leo.lojaSeuManuel.controle.rest;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,8 +18,6 @@ import javax.ws.rs.core.MediaType;
 //import javax.ws.rs.ApplicationPath;
 
 import br.leo.lojaSeuManuel.controle.ControleProduto;
-import br.leo.lojaSeuManuel.modelo.dao.ProdutoDao;
-import br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql;
 import br.leo.lojaSeuManuel.modelo.vo.Produto;
 
 /**
@@ -99,11 +96,11 @@ public class ProdutosRest {
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
 	public String inserir(Produto produto) {
 		
-		String mensagemRetorno = "";
+		String mensagemRetorno = "Produto inserido id: ";
 		
 		try {
 			
-			mensagemRetorno = controleProduto.inserir(produto);
+			mensagemRetorno += controleProduto.inserir(produto);
 			
 		} catch (Exception exception) {
 			
@@ -127,7 +124,7 @@ public class ProdutosRest {
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
 	public String atualizar(Produto produto, @PathParam("id") int idProduto) {
 		
-		String mensagemRetorno = "Produto atualizado id: ";
+		String mensagemRetorno = "";
 		
 		try {
 			
@@ -137,7 +134,7 @@ public class ProdutosRest {
 			
 		} catch (Exception exception) {
 			
-			mensagemRetorno = "Ocorreu um erro ao aplicar edição: " + exception.getMessage();
+			mensagemRetorno = "Ocorreu um erro ao atualizar: \n\n" + exception.getMessage();
 			
 			exception.printStackTrace();
 			
@@ -166,7 +163,7 @@ public class ProdutosRest {
 			
 		} catch (Exception exception) {
 			
-			mensagemRetorno = "Ocorreu um erro ao excluir: " + exception.getMessage();
+			mensagemRetorno = "Ocorreu um erro ao excluir: \n\n" + exception.getMessage();
 			
 			exception.printStackTrace();
 			

@@ -3,7 +3,6 @@
  */
 package br.leo.lojaSeuManuel.controle.rest;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,8 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import br.leo.lojaSeuManuel.modelo.dao.PedidoDao;
-import br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql;
+import br.leo.lojaSeuManuel.controle.ControlePedido;
 import br.leo.lojaSeuManuel.modelo.vo.Pedido;
 
 /**
@@ -31,13 +29,13 @@ public class PedidosRest {
 	
 private static final String CHARSET_UTF8 = ";charset=utf-8";
 	
-	private PedidoDao pedidoDao;
+	private ControlePedido controlePedido;
 	
 	
 	
 	@PostConstruct
 	private void init() {
-		pedidoDao = new PedidoDaoSql();
+		controlePedido = new ControlePedido();
 	}
 	
 	
@@ -50,13 +48,9 @@ private static final String CHARSET_UTF8 = ";charset=utf-8";
 		
 		try {
 			
-			listaPedidos = pedidoDao.listar();
+			listaPedidos = controlePedido.listar();
 			
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
-			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			
 			e.printStackTrace();
 			
@@ -82,13 +76,9 @@ private static final String CHARSET_UTF8 = ";charset=utf-8";
 		
 		try {
 			
-			pedido = pedidoDao.buscarPorId(idPedido);
+			pedido = controlePedido.buscarPorId(idPedido);
 			
-		} catch (ClassNotFoundException e) {
-			
-			e.printStackTrace();
-			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			
 			e.printStackTrace();
 			
@@ -109,27 +99,19 @@ private static final String CHARSET_UTF8 = ";charset=utf-8";
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
 	public String atualizar(Pedido pedido, @PathParam("id") int idPedido) {
 		
-		String mensagemRetorno = "Produto atualizado id: ";
+		String mensagemRetorno = "";
 		
 		try {
 			
 			pedido.setId(idPedido);
 			
-			pedidoDao.atualizar(pedido);
+			mensagemRetorno = controlePedido.atualizar(pedido);
 			
-			mensagemRetorno += idPedido;
+		} catch (Exception exception) {
 			
-		} catch (ClassNotFoundException e) {
+			mensagemRetorno = "Ocorreu um erro ao atualizar: \n\n" + exception.getMessage();
 			
-			mensagemRetorno = "Ocorreu um erro ao aplicar edição: " + e.getMessage();
-			
-			e.printStackTrace();
-			
-		} catch (SQLException e) {
-			
-			mensagemRetorno = "Ocorreu um erro ao aplicar edição: " + e.getMessage();
-			
-			e.printStackTrace();
+			exception.printStackTrace();
 			
 		}
 		
@@ -148,26 +130,17 @@ private static final String CHARSET_UTF8 = ";charset=utf-8";
 	@Produces(MediaType.TEXT_PLAIN + CHARSET_UTF8)
 	public String inserir(Pedido pedido) {
 		
-		String mensagemRetorno = "Produto inserido id: ";
+		String mensagemRetorno = "Pedido inserido id: ";
 		
 		try {
 			
-			int idGerado = pedidoDao.inserir(pedido);
+			mensagemRetorno += controlePedido.inserir(pedido);;
 			
-			mensagemRetorno += idGerado;
+		} catch (Exception exception) {
 			
-		} catch (ClassNotFoundException e) {
+			exception.printStackTrace();
 			
-			mensagemRetorno = "Ocorreu um erro ao inserir: " + e.getMessage();
-			
-			e.printStackTrace();
-			
-		} catch (SQLException e) {
-			
-			mensagemRetorno = "Ocorreu um erro ao inserir: " + e.getMessage();
-			
-			e.printStackTrace();
-			
+			mensagemRetorno = "Erro ao inserir pedido:\n\n" + exception.getMessage();
 		}
 		
 		System.out.println("Executou o REST inserir produto.");
