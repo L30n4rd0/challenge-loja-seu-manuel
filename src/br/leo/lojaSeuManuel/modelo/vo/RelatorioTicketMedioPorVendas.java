@@ -14,6 +14,12 @@ public class RelatorioTicketMedioPorVendas extends Relatorio {
 	private int quantidadeVendas;
 	
 	private double ticketMedio;
+	
+	
+	
+	
+	public RelatorioTicketMedioPorVendas() {
+	}
 
 	
 	

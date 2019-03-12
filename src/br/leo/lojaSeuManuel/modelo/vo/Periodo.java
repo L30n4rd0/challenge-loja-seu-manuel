@@ -15,6 +15,12 @@ public class Periodo {
 	
 	private Date dataFinal;
 
+	
+	
+	public Periodo() {
+	}
+	
+	
 	/**
 	 * @param dataInicial
 	 * @param dataFinal

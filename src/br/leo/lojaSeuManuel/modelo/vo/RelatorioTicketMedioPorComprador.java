@@ -18,6 +18,13 @@ public class RelatorioTicketMedioPorComprador extends Relatorio {
 	
 	
 	
+	public RelatorioTicketMedioPorComprador() {
+	}
+	
+	
+	
+	
+	
 	/**
 	 * @param periodo
 	 * @param valorTotalCompradores

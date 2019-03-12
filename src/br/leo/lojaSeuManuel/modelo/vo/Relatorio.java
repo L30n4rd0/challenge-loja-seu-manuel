@@ -14,6 +14,14 @@ public class Relatorio {
 	private Periodo periodo;
 	
 	private double valorTotalVendas;
+	
+	
+	
+	public Relatorio() {
+	}
+	
+	
+	
 
 	/**
 	 * @param periodo
