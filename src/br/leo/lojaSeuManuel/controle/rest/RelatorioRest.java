@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import br.leo.lojaSeuManuel.controle.ControleRelatorio;
 import br.leo.lojaSeuManuel.modelo.vo.Periodo;
+import br.leo.lojaSeuManuel.modelo.vo.RelatorioTicketMedioPorCompradores;
 import br.leo.lojaSeuManuel.modelo.vo.RelatorioTicketMedioPorVendas;
 
 
@@ -48,11 +49,11 @@ public class RelatorioRest {
 	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
 	public RelatorioTicketMedioPorVendas ticketMedioPorVendas(Periodo periodo) {
 		
-		RelatorioTicketMedioPorVendas mensagemRetorno = null;
+		RelatorioTicketMedioPorVendas relatorioRetorno = null;
 		
 		try {
 			
-			mensagemRetorno = controleRelatorio.gerarRelatorioTicketMedioPorVendas(periodo);
+			relatorioRetorno = controleRelatorio.gerarRelatorioTicketMedioPorVendas(periodo);
 			
 		} catch (Exception exception) {
 			
@@ -62,7 +63,34 @@ public class RelatorioRest {
 		
 		System.out.println("Executou o REST ticketMedioPorVendas.");
 		
-		return mensagemRetorno;
+		return relatorioRetorno;
+		
+	}
+	
+	
+	
+	
+	@POST
+	@Path("/ticketmedioporcompradores")
+	@Consumes(MediaType.APPLICATION_JSON + CHARSET_UTF8)
+	@Produces(MediaType.APPLICATION_JSON + CHARSET_UTF8)
+	public RelatorioTicketMedioPorCompradores ticketMedioPorCompradores(Periodo periodo) {
+		
+		RelatorioTicketMedioPorCompradores relatorioRetorno = null;
+		
+		try {
+			
+			relatorioRetorno = controleRelatorio.gerarRelatorioTicketMedioPorCompradores(periodo);
+			
+		} catch (Exception exception) {
+			
+			exception.printStackTrace();
+			
+		}
+		
+		System.out.println("Executou o REST ticketMedioPorCompradores.");
+		
+		return relatorioRetorno;
 		
 	}
 

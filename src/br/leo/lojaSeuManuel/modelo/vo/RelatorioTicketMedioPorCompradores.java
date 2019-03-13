@@ -9,7 +9,7 @@ import br.leo.lojaSeuManuel.util.FormatarValor;
  * @author leonardo
  *
  */
-public class RelatorioTicketMedioPorComprador extends Relatorio {
+public class RelatorioTicketMedioPorCompradores extends Relatorio {
 	
 	private int quantidadeCompradores;
 	
@@ -18,7 +18,7 @@ public class RelatorioTicketMedioPorComprador extends Relatorio {
 	
 	
 	
-	public RelatorioTicketMedioPorComprador() {
+	public RelatorioTicketMedioPorCompradores() {
 	}
 	
 	
@@ -27,11 +27,11 @@ public class RelatorioTicketMedioPorComprador extends Relatorio {
 	
 	/**
 	 * @param periodo
-	 * @param valorTotalCompradores
+	 * @param valorTotalVendas
 	 * @param quantidadeCompradores
 	 */
-	public RelatorioTicketMedioPorComprador(Periodo periodo, double valorTotalCompradores, int quantidadeCompradores) {
-		super(periodo, valorTotalCompradores);
+	public RelatorioTicketMedioPorCompradores(Periodo periodo, double valorTotalVendas, int quantidadeCompradores) {
+		super(periodo, valorTotalVendas);
 		this.quantidadeCompradores = quantidadeCompradores;
 		calcularTicketMedio();
 	}

@@ -3,8 +3,6 @@
  */
 package br.leo.lojaSeuManuel.controle;
 
-import java.sql.SQLException;
-
 import br.leo.lojaSeuManuel.modelo.dao.ProdutoDao;
 import br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql;
 import br.leo.lojaSeuManuel.modelo.vo.ItemPedido;
