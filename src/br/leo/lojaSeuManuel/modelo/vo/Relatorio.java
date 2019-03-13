@@ -3,7 +3,7 @@
  */
 package br.leo.lojaSeuManuel.modelo.vo;
 
-import br.leo.lojaSeuManuel.util.FormatarValor;
+import br.leo.lojaSeuManuel.util.Formatador;
 
 /**
  * @author leonardo
@@ -29,7 +29,7 @@ public class Relatorio {
 	 */
 	public Relatorio(Periodo periodo, double valorTotalVendas) {
 		this.periodo = periodo;
-		this.valorTotalVendas = FormatarValor.formatarDoubeParaDoisDecimais(valorTotalVendas);
+		this.valorTotalVendas = Formatador.formatarDoubeParaDoisDecimais(valorTotalVendas);
 	}
 	
 	

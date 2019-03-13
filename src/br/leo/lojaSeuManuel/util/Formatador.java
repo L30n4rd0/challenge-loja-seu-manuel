@@ -3,7 +3,7 @@ package br.leo.lojaSeuManuel.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class FormatarValor {
+public class Formatador {
 	
 	public static double formatarDoubeParaDoisDecimais(double valor) {
 		

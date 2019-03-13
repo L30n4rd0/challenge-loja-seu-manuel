@@ -6,7 +6,7 @@ package br.leo.lojaSeuManuel.modelo.vo;
 import java.sql.Date;
 import java.util.List;
 
-import br.leo.lojaSeuManuel.util.FormatarValor;
+import br.leo.lojaSeuManuel.util.Formatador;
 
 /**
  * @author leonardo
@@ -88,7 +88,7 @@ public class Pedido {
 			
 		}
 		
-		this.valorTotal = FormatarValor.formatarDoubeParaDoisDecimais(this.valorTotal);
+		this.valorTotal = Formatador.formatarDoubeParaDoisDecimais(this.valorTotal);
 		
 		
 	}

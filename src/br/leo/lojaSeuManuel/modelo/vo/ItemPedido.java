@@ -3,7 +3,7 @@
  */
 package br.leo.lojaSeuManuel.modelo.vo;
 
-import br.leo.lojaSeuManuel.util.FormatarValor;
+import br.leo.lojaSeuManuel.util.Formatador;
 
 /**
  * @author leonardo
@@ -86,7 +86,7 @@ public class ItemPedido {
 	private void atualizarValorParcial() {
 		this.valorParcial = this.quantidade * this.precoProdutoVenda;
 		
-		this.valorParcial = FormatarValor.formatarDoubeParaDoisDecimais(this.valorParcial);
+		this.valorParcial = Formatador.formatarDoubeParaDoisDecimais(this.valorParcial);
 	}
 	
 	

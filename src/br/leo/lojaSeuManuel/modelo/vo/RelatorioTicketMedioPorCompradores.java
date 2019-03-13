@@ -3,7 +3,7 @@
  */
 package br.leo.lojaSeuManuel.modelo.vo;
 
-import br.leo.lojaSeuManuel.util.FormatarValor;
+import br.leo.lojaSeuManuel.util.Formatador;
 
 /**
  * @author leonardo
@@ -46,7 +46,7 @@ public class RelatorioTicketMedioPorCompradores extends Relatorio {
 		
 		this.ticketMedio = this.getValorTotalVendas() / this.quantidadeCompradores;
 		
-		this.ticketMedio = FormatarValor.formatarDoubeParaDoisDecimais(this.ticketMedio);
+		this.ticketMedio = Formatador.formatarDoubeParaDoisDecimais(this.ticketMedio);
 		
 	}
 
