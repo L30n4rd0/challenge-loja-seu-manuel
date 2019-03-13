@@ -10,11 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDao;
 import br.leo.lojaSeuManuel.modelo.dao.AtributoCustomizavelDaoSql;
+import br.leo.lojaSeuManuel.modelo.dao.ProdutoDao;
+import br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql;
 import br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel;
+import br.leo.lojaSeuManuel.util.GeradorDados;
 
 /**
  * @author leonardo
@@ -24,8 +28,20 @@ class AtributoCustomizavelDaoSqlTeste {
 	
 	static AtributoCustomizavelDao atributoDao = new AtributoCustomizavelDaoSql();
 	
-	int idProduto = 1;
+	static ProdutoDao produtoDao = new ProdutoDaoSql();
+	
+	static int idProduto = 1;
 
+	
+	
+	@BeforeAll
+	public static void inserirUmProduto() throws ClassNotFoundException, SQLException {
+		
+		idProduto = produtoDao.inserir(new GeradorDados().gerarNovoProduto());
+
+	}
+	
+	
 	
 	
 	/**
@@ -36,14 +52,15 @@ class AtributoCustomizavelDaoSqlTeste {
 	@Test
 	void testListar() throws ClassNotFoundException, SQLException {
 		
+		AtributoCustomizavel atributoTemp = new AtributoCustomizavel("atributoNome", "333");
+		atributoDao.inserir(atributoTemp, idProduto);
+		
+		atributoTemp = new AtributoCustomizavel("atributoNome", "4444");
+		atributoDao.inserir(atributoTemp, idProduto);
+		
+		
 		List<AtributoCustomizavel> listaAtributosTemp = atributoDao.listar();
 		
-//		for (AtributoCustomizavel atributoCustomizavel : listaAtributosTemp) {
-//			System.out.println(atributoCustomizavel.getId());
-//			System.out.println(atributoCustomizavel.getNome());
-//		}
-		
-//		assertNull(listaAtributosTemp);
 		
 		assertTrue(listaAtributosTemp.size() > 0);
 		
@@ -100,15 +117,6 @@ class AtributoCustomizavelDaoSqlTeste {
 	 */
 	@Test
 	void testInserir() throws ClassNotFoundException, SQLException {
-		
-		/**
-		 * Testando a SQLException no caso onde fk_id_produto é zero
-//		 */
-//		assertThrows(SQLException.class, () -> {
-//			
-//	        atributoDao.inserir(new AtributoCustomizavel("atributoNome", "333"), 0);
-//	        
-//	    });
 		
 		
 		int idAtributoInserido = 0;

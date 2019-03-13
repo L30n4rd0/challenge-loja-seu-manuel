@@ -31,7 +31,7 @@ Considere que o sistema deve:
 - JavaFaker para gerar dados para inserir no banco de dados;
 
 
-## Intalação
+# Intalação
 O projeto é estruturado como projeto Maven, sendo assim basta importá-lo no EclipseEE através do menu: **"File->Import"** e em seguida escolher **"Existing Maven Project"** na lista de tipos de projetos disponibilizada. Após a importação do projeto, o Maven baixará todas as dependências identificadas no arquivo **pom.xml** (isso pode demorar um pouco na primeira vez).
 
 Para executar o projeto é necessário configurar no Eclpse o endereço local da pasta onde se encontram os arquivos do servidor Tomcat, através do menu: **Window->Preferences->Server->Runtime Environments**, veja mais detalhes no link: <https://cursos.alura.com.br/forum/topico-como-executar-diretamente-no-eclipse-o-servidor-do-tomcat-33541>.
@@ -43,11 +43,11 @@ A execução também pode ser feita copiando-se o arquivo **challenge-loja-seu-m
 No pacote **br.leo.lojaSeuManuel.util** existe uma classe chamada **PovoarBanco**, ela pode ser executada para preencher o banco de dados com alguns cadastros fictícios para testes e demonstrações.
 
 
-## Acessando e manipulando os dados
+# Acessando e manipulando os dados
 Contanto que o projeto esteja sendo executado sem problemas no servidor podemos acessar os serviços REST da seguinte forma:
 
 
-### Produtos
+## Produtos
 
 **Objetivo:** listar todos os produtos cadastrados
 
@@ -146,7 +146,7 @@ Contanto que o projeto esteja sendo executado sem problemas no servidor podemos 
  
 **Requisição:** POST
 
-**Entrada:** dados de um produto em formato JSON no corpo da requisição, como visto em seguida
+**Entrada:** dados de um produto em formato JSON no BODY da requisição, como visto em seguida
 
 ```JSON
 
@@ -179,7 +179,7 @@ Contanto que o projeto esteja sendo executado sem problemas no servidor podemos 
  
 **Requisição:** PUT
 
-**Entrada:** dados do produto em formato JSON no corpo da requisição e o id do id do produto na URL, como visto em seguida
+**Entrada:** dados do produto em formato JSON no BODY da requisição e o id do id do produto na URL, como visto em seguida
 
 ```JSON
 
@@ -221,7 +221,7 @@ Contanto que o projeto esteja sendo executado sem problemas no servidor podemos 
 
 
 
-### Pedidos
+## Pedidos
 
 **Objetivo:** listar todos os pedidos cadastrados
 
@@ -418,7 +418,7 @@ Contanto que o projeto esteja sendo executado sem problemas no servidor podemos 
  
 **Requisição:** POST
 
-**Entrada:** dados do novo pedido em formato JSON no corpo da requisição 
+**Entrada:** dados do novo pedido em formato JSON no BODY da requisição 
 
 ```JSON
 {
@@ -455,7 +455,7 @@ Contanto que o projeto esteja sendo executado sem problemas no servidor podemos 
  
 **Requisição:** PUT
 
-**Entrada:** dados do pedido em formato JSON no corpo da requisição e o id do pedido na URL
+**Entrada:** dados do pedido em formato JSON no BODY da requisição e o id do pedido na URL
 
 ```JSON
 {
@@ -489,7 +489,7 @@ Contanto que o projeto esteja sendo executado sem problemas no servidor podemos 
 
 
 
-### Relatórios
+## Relatórios
 
 **Objetivo:** gerar um relatório de ticket médio relacionado à quantidade de **vendas** e o somatório total do valor de cada venda
 

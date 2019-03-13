@@ -3,7 +3,9 @@
  */
 package br.leo.lojaSeuManuel.testes.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -16,11 +18,11 @@ import br.leo.lojaSeuManuel.modelo.dao.PedidoDao;
 import br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql;
 import br.leo.lojaSeuManuel.modelo.dao.ProdutoDao;
 import br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql;
-import br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel;
 import br.leo.lojaSeuManuel.modelo.vo.ItemPedido;
 import br.leo.lojaSeuManuel.modelo.vo.Pedido;
 import br.leo.lojaSeuManuel.modelo.vo.Produto;
 import br.leo.lojaSeuManuel.util.EstadoPedido;
+import br.leo.lojaSeuManuel.util.GeradorDados;
 
 /**
  * @author leonardo
@@ -28,13 +30,12 @@ import br.leo.lojaSeuManuel.util.EstadoPedido;
  */
 class PedidoDaoSqlTeste {
 	
-	////////////////////////////////////////////////////////////////////////////
-	// Atributos estáticos
-	////////////////////////////////////////////////////////////////////////////
 	
 	static PedidoDao pedidoDao = new PedidoDaoSql();
 	
 	static ProdutoDao produtoDao = new ProdutoDaoSql();
+	
+	static GeradorDados geradorDados = new GeradorDados();
 	
 	
 	
@@ -50,15 +51,8 @@ class PedidoDaoSqlTeste {
 		// Lista do itens do pedido
 		List<ItemPedido> listaItensPedido = new ArrayList<ItemPedido>();
 		
-		// Lista de atributos extras do produto
-		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
-		
-		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
-		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
-		atributosExtras.add(new AtributoCustomizavel("peso", "20g"));
-		
 		// Produto temporário utilizado nos testes
-		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
+		Produto produtoTemp = geradorDados.gerarNovoProduto();
 		
 		// Id do produto, gerado no banco durante a inserção
 		int idProdutoInserido = produtoDao.inserir(produtoTemp);
@@ -68,11 +62,8 @@ class PedidoDaoSqlTeste {
 		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
 		listaItensPedido.add(itemPedidoTemp);
 		
-		// Atualiza os atributos do produto para inserir um segundo produto no banco
-		produtoTemp.setCodigo("prod02");
-		produtoTemp.setDescricao("dvd pagode");
-		produtoTemp.setPreco(5);
-		produtoTemp.setEstoque(20);
+		// Gera um segundo produto
+		produtoTemp = geradorDados.gerarNovoProduto();
 		
 		// Id do produto, gerado no banco durante a inserção
 		idProdutoInserido = produtoDao.inserir(produtoTemp);
@@ -86,7 +77,7 @@ class PedidoDaoSqlTeste {
 		Pedido pedidoTemp = new Pedido(
 				"ped01", 
 				new Date(System.currentTimeMillis()), 
-				"pedro", 
+				"Pedro Augusto", 
 				EstadoPedido.APROVADO.getValor(), 
 				10, 
 				listaItensPedido
@@ -158,18 +149,6 @@ class PedidoDaoSqlTeste {
 		assertNotNull(pedidoBuscado.getValorFrete());
 		assertNotNull(pedidoBuscado.getValorTotal());
 		
-//		// Atualiza o pedidoBusca e insere no banco como um novo pedido
-//		pedidoTemp.setCodigo("ped02");
-//		pedidoTemp.setIdProduto(idProdutoInserido);
-//		
-//		// Atualiza o objeto pedidoTemp com os dados do produto
-//		pedidoTemp.setCodigoProduto(produtoTemp.getCodigo());
-//		pedidoTemp.setNomeProduto(produtoTemp.getNome());
-//		pedidoTemp.setPrecoProduto(produtoTemp.getPreco());
-//		pedidoTemp.atualizarPreco();
-//		
-//		// Testa se item pedido inserido no banco é igual (tem o mesmo conteúdo) do retornado na busca
-//		assertTrue(pedidoTemp.equals( pedidoBuscado )); 
 		
 	}
 	
@@ -230,31 +209,6 @@ class PedidoDaoSqlTeste {
 		
 		
 	}
-	
-	
-	
-
-	/**
-	 * Test method for {@link br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql#excluir(int)}.
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 */
-	@Test
-	void testExcluir() throws ClassNotFoundException, SQLException {
-		
-		// Id do pedido, gerado no banco
-		int idPedidoInserido = pedidoDao.inserir(novoPedido());
-		
-		// Exclui através item inserido através do id
-		pedidoDao.excluir(idPedidoInserido);
-		
-		// Testa se o pedido foi realmente excluído
-		assertNull(pedidoDao.buscarPorId(idPedidoInserido));
-		
-		
-		
-	}
-	
 	
 
 }

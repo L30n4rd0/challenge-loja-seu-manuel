@@ -5,19 +5,26 @@ package br.leo.lojaSeuManuel.testes.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDao;
 import br.leo.lojaSeuManuel.modelo.dao.ItemPedidoDaoSql;
+import br.leo.lojaSeuManuel.modelo.dao.PedidoDao;
+import br.leo.lojaSeuManuel.modelo.dao.PedidoDaoSql;
 import br.leo.lojaSeuManuel.modelo.dao.ProdutoDao;
 import br.leo.lojaSeuManuel.modelo.dao.ProdutoDaoSql;
 import br.leo.lojaSeuManuel.modelo.vo.AtributoCustomizavel;
 import br.leo.lojaSeuManuel.modelo.vo.ItemPedido;
+import br.leo.lojaSeuManuel.modelo.vo.Pedido;
 import br.leo.lojaSeuManuel.modelo.vo.Produto;
+import br.leo.lojaSeuManuel.util.EstadoPedido;
+import br.leo.lojaSeuManuel.util.GeradorDados;
 
 /**
  * @author leonardo
@@ -28,8 +35,123 @@ class ItemPedidoDaoSqlTeste {
 	static ItemPedidoDao itemPedidoDao = new ItemPedidoDaoSql();
 	
 	static ProdutoDao produtoDao = new ProdutoDaoSql();
+	
+	static GeradorDados geradorDados = new GeradorDados();
+	
+	static PedidoDao pedidoDao = new PedidoDaoSql();
 
-	int chaveEstrangeiraPedido = 1;
+	static int chaveEstrangeiraPedido = 1;
+	
+	
+	
+	
+	@BeforeAll
+	public static void insereUmPedido() throws ClassNotFoundException, SQLException {
+		
+		// Lista do itens do pedido, não precisa ter conteúdo porque
+		// a intenção é obter o id gerado no banco e atribuir à variável chaveEstrangeiraPedido
+		List<ItemPedido> listaItensPedido = new ArrayList<ItemPedido>();
+		
+		// Pedido temporário utilizado nos testes
+		Pedido pedidoTemp = new Pedido(
+				"ped01", 
+				new Date(System.currentTimeMillis()), 
+				"Pedro Augusto", 
+				EstadoPedido.APROVADO.getValor(), 
+				10, 
+				listaItensPedido
+		);
+		
+		
+		// Iniciando a chaveEstrangeiraPedido com o id gerado
+		chaveEstrangeiraPedido = pedidoDao.inserir(pedidoTemp);
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * Cria uma no nova instância do objeto Pedido
+	 * @return Um objeto Pedido
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public Pedido novoPedido() throws ClassNotFoundException, SQLException {
+		
+		// Lista do itens do pedido
+		List<ItemPedido> listaItensPedido = new ArrayList<ItemPedido>();
+		
+//		// Produto temporário utilizado nos testes
+//		Produto produtoTemp = geradorDados.gerarNovoProduto();
+//		
+//		// Id do produto, gerado no banco durante a inserção
+//		int idProdutoInserido = produtoDao.inserir(produtoTemp);
+//		
+//		// Insere o produto na lista de itens do pedido
+//		ItemPedido itemPedidoTemp = new ItemPedido(idProdutoInserido, 2);
+//		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
+//		listaItensPedido.add(itemPedidoTemp);
+//		
+//		// Gera um segundo produto
+//		produtoTemp = geradorDados.gerarNovoProduto();
+//		
+//		// Id do produto, gerado no banco durante a inserção
+//		idProdutoInserido = produtoDao.inserir(produtoTemp);
+//		
+//		// Insere o produto na lista de itens do pedido
+//		itemPedidoTemp = new ItemPedido(idProdutoInserido, 3);
+//		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
+//		listaItensPedido.add(itemPedidoTemp);
+		
+		// Pedido temporário utilizado nos testes
+		Pedido pedidoTemp = new Pedido(
+				"ped01", 
+				new Date(System.currentTimeMillis()), 
+				"Pedro Augusto", 
+				EstadoPedido.APROVADO.getValor(), 
+				10, 
+				listaItensPedido
+		);
+		
+		return pedidoTemp;
+		
+	}
+	
+	
+	
+	
+	
+	public ItemPedido novoItemPedido() throws ClassNotFoundException, SQLException {
+		
+		// Produto temporário utilizado nos testes
+		Produto produtoTemp = geradorDados.gerarNovoProduto();
+		
+		// Id do produto, gerado no banco durante a inserção
+		int idProdutoInserido = produtoDao.inserir(produtoTemp);
+		
+		ItemPedido itemPedidoTemp = new ItemPedido(idProdutoInserido, 2);
+		
+		
+		// Atualiza o objeto itemPedidoTemp com os IDs gerados no banco
+		// ao inserir um novo registro
+		itemPedidoTemp.setIdProduto(idProdutoInserido);
+		
+		// Atualiza o objeto itemPedidoTemp com os dados do produto
+		itemPedidoTemp.setCodigoProduto(produtoTemp.getCodigo());
+		itemPedidoTemp.setNomeProduto(produtoTemp.getNome());
+		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
+//				itemPedidoTemp.atualizarValorParcial();
+		
+		return itemPedidoTemp;
+		
+	}
+	
+	
+	
 	
 	
 	
@@ -40,6 +162,11 @@ class ItemPedidoDaoSqlTeste {
 	 */
 	@Test
 	void testListar() throws ClassNotFoundException, SQLException {
+		
+		itemPedidoDao.inserir(novoItemPedido(), chaveEstrangeiraPedido);
+		
+		itemPedidoDao.inserir(novoItemPedido(), chaveEstrangeiraPedido);
+		
 		
 		List<ItemPedido> listaItensPedidoTemp = itemPedidoDao.listar();
 		
@@ -74,21 +201,8 @@ class ItemPedidoDaoSqlTeste {
 		
 		assertNull(itemPedidoDao.buscarPorId(0));
 		
-		// Lista de atributos extras do produto
-		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
-		
-		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
-		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
-		atributosExtras.add(new AtributoCustomizavel("peso", "2kg"));
-		
-		// Produto temporário utilizado nos testes
-		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
-		
-		// Id do produto, gerado no banco durante a inserção
-		int idProdutoInserido = produtoDao.inserir(produtoTemp);
-		
 		// Item de pedido temporário utilizado nos testes
-		ItemPedido itemPedidoTemp = new ItemPedido(idProdutoInserido, 20);
+		ItemPedido itemPedidoTemp = novoItemPedido();
 		
 		// Id do item de pedido, gerado no banco
 		int idItemPedidoInserido = itemPedidoDao.inserir(itemPedidoTemp, chaveEstrangeiraPedido);
@@ -106,16 +220,8 @@ class ItemPedidoDaoSqlTeste {
 		assertNotNull(itemBuscado.getQuantidade());
 		assertNotNull(itemBuscado.getValorParcial());
 		
-		// Atualiza o objeto itemPedidoTemp com os IDs gerados no banco
-		// ao inserir um novo registro
+		// Atualiza com id gerado no banco
 		itemPedidoTemp.setId(idItemPedidoInserido);
-		itemPedidoTemp.setIdProduto(idProdutoInserido);
-		
-		// Atualiza o objeto itemPedidoTemp com os dados do produto
-		itemPedidoTemp.setCodigoProduto(produtoTemp.getCodigo());
-		itemPedidoTemp.setNomeProduto(produtoTemp.getNome());
-		itemPedidoTemp.setPrecoProdutoVenda(produtoTemp.getPreco());
-//		itemPedidoTemp.atualizarValorParcial();
 		
 		// Testa se item pedido inserido no banco é igual (tem o mesmo conteúdo) do retornado na busca
 		assertTrue(itemPedidoTemp.equals( itemBuscado ));
@@ -133,21 +239,9 @@ class ItemPedidoDaoSqlTeste {
 	@Test
 	void testInserir() throws ClassNotFoundException, SQLException {
 		
-		// Lista de atributos extras do produto
-		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
-		
-		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
-		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
-		atributosExtras.add(new AtributoCustomizavel("peso", "2kg"));
-		
-		// Produto temporário utilizado nos testes
-		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
-		
-		// Id do produto, gerado no banco durante a inserção
-		int idProdutoInserido = produtoDao.inserir(produtoTemp);
 		
 		// Item de pedido temporário utilizado nos testes
-		ItemPedido itemPedidoTemp = new ItemPedido(idProdutoInserido, 20);
+		ItemPedido itemPedidoTemp = novoItemPedido();
 		
 		// Id do item de pedido, gerado no banco
 		int idItemPedidoInserido = itemPedidoDao.inserir(itemPedidoTemp, chaveEstrangeiraPedido);
@@ -171,21 +265,8 @@ class ItemPedidoDaoSqlTeste {
 	@Test
 	void testAtualizar() throws ClassNotFoundException, SQLException {
 		
-		// Lista de atributos extras do produto
-		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
-		
-		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
-		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
-		atributosExtras.add(new AtributoCustomizavel("peso", "2kg"));
-		
-		// Produto temporário utilizado nos testes
-		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
-		
-		// Id do produto, gerado no banco durante a inserção
-		int idProdutoInserido = produtoDao.inserir(produtoTemp);
-		
 		// Item de pedido temporário utilizado nos testes
-		ItemPedido itemPedidoTemp = new ItemPedido(idProdutoInserido, 20);
+		ItemPedido itemPedidoTemp = novoItemPedido();
 		
 		// Id do item de pedido, gerado no banco
 		int idItemPedidoInserido = itemPedidoDao.inserir(itemPedidoTemp, chaveEstrangeiraPedido);
@@ -217,21 +298,8 @@ class ItemPedidoDaoSqlTeste {
 	@Test
 	void testExcluir() throws ClassNotFoundException, SQLException {
 		
-		// Lista de atributos extras do produto
-		List<AtributoCustomizavel> atributosExtras = new ArrayList<AtributoCustomizavel>();
-		
-		atributosExtras.add(new AtributoCustomizavel("cor", "amarelo"));
-		atributosExtras.add(new AtributoCustomizavel("cor", "azul"));
-		atributosExtras.add(new AtributoCustomizavel("peso", "2kg"));
-		
-		// Produto temporário utilizado nos testes
-		Produto produtoTemp = new Produto("prod01", "dvd", "dvd de sertanejo", 8, 10, atributosExtras);
-		
-		// Id do produto, gerado no banco durante a inserção
-		int idProdutoInserido = produtoDao.inserir(produtoTemp);
-		
 		// Item de pedido temporário utilizado nos testes
-		ItemPedido itemPedidoTemp = new ItemPedido(idProdutoInserido, 20);
+		ItemPedido itemPedidoTemp = novoItemPedido();
 		
 		// Id do item de pedido, gerado no banco
 		int idItemPedidoInserido = itemPedidoDao.inserir(itemPedidoTemp, chaveEstrangeiraPedido);
@@ -255,16 +323,18 @@ class ItemPedidoDaoSqlTeste {
 	@Test
 	void testbuscarPorChaveEstrangeiraProduto() throws ClassNotFoundException, SQLException {
 		
+		// Item de pedido temporário utilizado nos testes
+		ItemPedido itemPedidoTemp = novoItemPedido();
+		
+		// Id do item de pedido, gerado no banco
+		itemPedidoDao.inserir(itemPedidoTemp, chaveEstrangeiraPedido);
+		
 		List<ItemPedido> listaAtributosTemp = itemPedidoDao.buscarPorChaveEstrangeiraPedido(chaveEstrangeiraPedido);
 		
 		assertNotNull(listaAtributosTemp);
 		
 		assertTrue(listaAtributosTemp.size() > 0);
 		
-//		for (ItemPedido itemPedido : listaAtributosTemp) {
-//			System.out.println(itemPedido.getId());
-//		}
-//		
 	}
 
 }

@@ -4,7 +4,6 @@
 package br.leo.lojaSeuManuel.modelo.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -270,7 +269,7 @@ public class PedidoDaoSql implements PedidoDao {
 			ItemPedidoDao itemPedidoDao = new ItemPedidoDaoSql();
 			
 			for (ItemPedido itemPedido : pedido.getItensDoPedido()) {
-				System.out.println("dsfsdfsdf");
+
 				itemPedidoDao.atualizar(itemPedido);
 				
 			}
