@@ -20,7 +20,7 @@ Considere que o sistema deve:
 - Evitar o cadastro de pedidos cujo item não tem estoque suficiente.
 
 
-## Ferramentas utilizadas no desenvolvimento
+# Ferramentas utilizadas no desenvolvimento
 - EclipeEE IDE para edição de códigos (Linguagem Java);
 - MySQL Workbench para modelagem e criação do banco de dados (MariaDB);
 - Apache Tomcat para execução e disponibilidade dos serviços Web;
@@ -38,7 +38,7 @@ Para executar o projeto é necessário configurar no Eclpse o endereço local da
 
 A execução também pode ser feita copiando-se o arquivo **challenge-loja-seu-manuel.war**, que encontra-se no diretório **raiz** no projeto, colando-o no diretório **diretorioApacheTomcat/webapps** do servidor. Em seguida inicia-se o servidor através do executável **startup.sh (startup.bat em sistemas Windows)**, contido no diretório **diretorioApacheTomcat/bin**.
 
-É necessário também importar o banco de dados para o servidor local por meio do arquivo **bd_loja_seu_manuel.sql**, que encontra-se na pasta **bd_loja_seu_manuel** na raiz do projeto. A importação pode ser feita com MySQL Workbench, phpmyadmin, mysqldump, etc.
+É necessário também importar o banco de dados para o servidor local por meio do arquivo **bd_loja_seu_manuel.sql**, que encontra-se na pasta **bd_loja_seu_manuel** na raiz do projeto. A importação pode ser feita com MySQL Workbench, phpmyadmin, mysqldump, etc. O usuário e senha para conexão com o banco de dados encontra-se na classe **ConexaoSql.java** no pacote **br.leo.lojaSeuManuel.modelo.dao.conexao**. Por padrão está configurado **usuário root sem senha**.
 
 No pacote **br.leo.lojaSeuManuel.util** existe uma classe chamada **PovoarBanco**, ela pode ser executada para preencher o banco de dados com alguns cadastros fictícios para testes e demonstrações.
 
@@ -47,7 +47,7 @@ No pacote **br.leo.lojaSeuManuel.util** existe uma classe chamada **PovoarBanco*
 Contanto que o projeto esteja sendo executado sem problemas no servidor podemos acessar os serviços REST da seguinte forma:
 
 
-## Produtos
+## *************** Produtos ***************
 
 **Objetivo:** listar todos os produtos cadastrados
 
@@ -221,7 +221,7 @@ Contanto que o projeto esteja sendo executado sem problemas no servidor podemos 
 
 
 
-## Pedidos
+## *************** Pedidos ***************
 
 **Objetivo:** listar todos os pedidos cadastrados
 
@@ -489,7 +489,7 @@ Contanto que o projeto esteja sendo executado sem problemas no servidor podemos 
 
 
 
-## Relatórios
+## *************** Relatórios ***************
 
 **Objetivo:** gerar um relatório de ticket médio relacionado à quantidade de **vendas** e o somatório total do valor de cada venda
 
