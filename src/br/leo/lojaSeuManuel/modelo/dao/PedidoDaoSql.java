@@ -270,7 +270,7 @@ public class PedidoDaoSql implements PedidoDao {
 			ItemPedidoDao itemPedidoDao = new ItemPedidoDaoSql();
 			
 			for (ItemPedido itemPedido : pedido.getItensDoPedido()) {
-				
+				System.out.println("dsfsdfsdf");
 				itemPedidoDao.atualizar(itemPedido);
 				
 			}

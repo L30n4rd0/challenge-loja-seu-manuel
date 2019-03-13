@@ -18,12 +18,17 @@ import javax.ws.rs.core.MediaType;
 import br.leo.lojaSeuManuel.controle.ControlePedido;
 import br.leo.lojaSeuManuel.modelo.vo.Pedido;
 
+
+/////////////////
+// A configuração do serviço REST da biblioteca jersey 
+// encontra-se no arquivo WebContent/WEB-INF/web.xml
+////////////////
+
+
 /**
  * @author leonardo
  *
  */
-
-
 @Path("/pedidos")
 public class PedidosRest {
 	

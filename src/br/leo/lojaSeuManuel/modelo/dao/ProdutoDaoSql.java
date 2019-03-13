@@ -221,11 +221,15 @@ public class ProdutoDaoSql implements ProdutoDao {
 				
 				idGerado = resultSet.getInt(1);
 				
-				AtributoCustomizavelDao atributoCustomizavelDao = new AtributoCustomizavelDaoSql();
-				
-				for (AtributoCustomizavel atributo : produto.getAtributosCustomizaveis()) {
+				if (produto.getAtributosCustomizaveis() != null) {
 					
-					atributoCustomizavelDao.inserir(atributo, idGerado);
+					AtributoCustomizavelDao atributoCustomizavelDao = new AtributoCustomizavelDaoSql();
+					
+					for (AtributoCustomizavel atributo : produto.getAtributosCustomizaveis()) {
+						
+						atributoCustomizavelDao.inserir(atributo, idGerado);
+						
+					}
 					
 				}
 				

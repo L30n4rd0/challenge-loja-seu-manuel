@@ -20,6 +20,14 @@ import javax.ws.rs.core.MediaType;
 import br.leo.lojaSeuManuel.controle.ControleProduto;
 import br.leo.lojaSeuManuel.modelo.vo.Produto;
 
+
+/////////////////
+//A configuração do serviço REST da biblioteca jersey 
+//encontra-se no arquivo WebContent/WEB-INF/web.xml
+////////////////
+
+
+
 /**
  * @author leonardo
  *

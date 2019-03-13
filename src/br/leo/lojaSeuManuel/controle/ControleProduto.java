@@ -48,6 +48,7 @@ public class ControleProduto {
 
 	public int inserir(Produto produto) throws Exception {
 		
+		
 		validador.validarProduto(produto);
 		
 		return produtoDao.inserir(produto);

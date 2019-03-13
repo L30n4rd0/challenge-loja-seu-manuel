@@ -16,6 +16,12 @@ import br.leo.lojaSeuManuel.modelo.vo.RelatorioTicketMedioPorCompradores;
 import br.leo.lojaSeuManuel.modelo.vo.RelatorioTicketMedioPorVendas;
 
 
+/////////////////
+//A configuração do serviço REST da biblioteca jersey 
+//encontra-se no arquivo WebContent/WEB-INF/web.xml
+////////////////
+
+
 
 /**
  * @author leonardo
